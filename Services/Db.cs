@@ -13,8 +13,19 @@ public class Db : Singleton<Db>
         Passwords = _db.GetCollection<PasswordEntry>("passwordEntries");
     }
 
-    public bool AddPassword(PasswordEntry password){
-        var result = Passwords.Insert(password);
+    public bool AddPassword(PasswordEntry password)
+    {
+        Passwords.EnsureIndex(x => x.Name, true);
+        LiteDB.BsonValue? result = null;
+        try
+        {
+            result = Passwords.Insert(password);
+        }
+        catch (LiteDB.LiteException _)
+        {
+            result = null;
+
+        }
         return result is not null;
     }
 

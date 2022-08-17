@@ -21,14 +21,15 @@
         <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center" />
         <!-- Add -->
         <Border BorderBrush="Black" BorderThickness="1" Margin="2" Padding="2">
-            <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Vertical">                
                 <TextBox Text="{Binding Name}" Watermark="Name" />
                 <DockPanel LastChildFill="True">
                     <Button DockPanel.Dock="Right" Command="{Binding ShowPass}" Content="{Binding ShowPassText}" />
                     <TextBox Text="{Binding Password}" Watermark="Password" PasswordChar="{Binding PassChar}" />
                 </DockPanel>
-                <DockPanel>
-                    <Button DockPanel.Dock="Right" Command="{Binding Add}">Add</Button>
+                <DockPanel LastChildFill="True">
+                    <Button DockPanel.Dock="Left" Command="{Binding Add}">Add</Button>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" IsVisible="{Binding !!Error}" Text="{Binding Error}" Foreground="White" Background="Red"/>
                 </DockPanel>
             </StackPanel>
         </Border>

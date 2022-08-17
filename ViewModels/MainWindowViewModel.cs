@@ -1,4 +1,5 @@
 ﻿using ReactiveUI;
+using Avalonia.Threading;
 using System.Linq;
 using System.Collections.ObjectModel;
 using System.Reactive;
@@ -28,6 +29,9 @@ public class MainWindowViewModel : ViewModelBase
     public ReactiveCommand<Unit, Unit> Add { get; set; }
     public ReactiveCommand<Unit, Unit> ShowPass { get; set; }
 
+    private string? _error = null;
+    public string? Error { get => _error; set => this.RaiseAndSetIfChanged(ref _error, value); }
+
     private string? _searchText = null;
     public string? SearchText { get => _searchText; set => this.RaiseAndSetIfChanged(ref _searchText, value); }
     public ReactiveCommand<Unit, Unit> Search { get; set; }
@@ -45,9 +49,23 @@ public class MainWindowViewModel : ViewModelBase
         });
         Add = ReactiveCommand.Create(() =>
         {
-            Db.Instance.AddPassword(new() { Name = Name, Password = Password });
+            var result = Db.Instance.AddPassword(new() { Name = Name, Password = Password });
+            if (!result)
+            {
+                System.Console.WriteLine("Error");
+                Error = $"Can't add {Name}, probably exists already";
+                DispatcherTimer.RunOnce(
+                    () =>
+                    {
+                        System.Console.WriteLine("Reset");
+                        Error = null;
+                    },
+                    System.TimeSpan.FromSeconds(3)
+                );
+            }
             Name = string.Empty;
             Password = string.Empty;
+
         });
         ShowPass = ReactiveCommand.Create(() =>
         {
