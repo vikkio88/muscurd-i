@@ -19,7 +19,7 @@
 
     <StackPanel>
         <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-        <TextBlock Text="{Binding Count}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <!-- Add -->
         <Border BorderBrush="Black" BorderThickness="1" Margin="2" Padding="2">
             <StackPanel Orientation="Vertical">
                 <TextBox Text="{Binding Name}" Watermark="Name" />
@@ -32,7 +32,30 @@
                 </DockPanel>
             </StackPanel>
         </Border>
-        <Button Command="{Binding CopyToClipboard}">Copy to Clipboard</Button>
+        <!-- Search -->
+        <Border BorderBrush="Black" BorderThickness="1" Margin="2" Padding="2">
+            <StackPanel Orientation="Vertical">
+                <DockPanel LastChildFill="True">
+                    <Button DockPanel.Dock="Right" Command="{Binding Search}">Search</Button>
+                    <TextBox Text="{Binding SearchText}" Watermark="Search Password" />
+                </DockPanel>
+                <!-- Results -->
+                <TextBlock Margin="4" DockPanel.Dock="Top" IsVisible="{Binding !!!Passwords.Count}">-</TextBlock>
+                <StackPanel x:Name="SearchRoot">
+                    <ItemsControl Items="{Binding Passwords}" IsVisible="{Binding !!Passwords.Count}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <DockPanel LastChildFill="True">
+                                    <Button DockPanel.Dock="Right" Command="{Binding #SearchRoot.DataContext.DeletePassword}" CommandParameter="{Binding Id}">Del</Button>
+                                    <Button DockPanel.Dock="Right" Command="{Binding #SearchRoot.DataContext.CopyToClipboard}" CommandParameter="{Binding Password}">Copy</Button>
+                                    <TextBlock Text="{Binding Name}" />
+                                </DockPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </StackPanel>
+        </Border>
     </StackPanel>
 
 </Window>

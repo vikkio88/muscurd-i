@@ -1,6 +1,9 @@
 ﻿using ReactiveUI;
+using System.Linq;
+using System.Collections.ObjectModel;
 using System.Reactive;
 using Muscurdi.Services;
+using Muscurdi.Models;
 
 namespace Muscurdi.ViewModels;
 public class MainWindowViewModel : ViewModelBase
@@ -17,21 +20,32 @@ public class MainWindowViewModel : ViewModelBase
     private string _showPassText = "Show";
     public string ShowPassText { get => _showPassText; set => this.RaiseAndSetIfChanged(ref _showPassText, value); }
 
-    private int _count = 0;
-    public int Count { get => _count; set => this.RaiseAndSetIfChanged(ref _count, value); }
+    private ObservableCollection<PasswordEntry> _passwords = new();
+    public ObservableCollection<PasswordEntry> Passwords { get => _passwords; set => this.RaiseAndSetIfChanged(ref _passwords, value); }
 
-    public ReactiveCommand<Unit, Unit> CopyToClipboard { get; set; }
+    public ReactiveCommand<string, Unit> CopyToClipboard { get; set; }
+    public ReactiveCommand<LiteDB.ObjectId, Unit> DeletePassword { get; set; }
     public ReactiveCommand<Unit, Unit> Add { get; set; }
     public ReactiveCommand<Unit, Unit> ShowPass { get; set; }
 
+    private string? _searchText = null;
+    public string? SearchText { get => _searchText; set => this.RaiseAndSetIfChanged(ref _searchText, value); }
+    public ReactiveCommand<Unit, Unit> Search { get; set; }
+
     public MainWindowViewModel()
     {
-        Count = Db.Instance.Passwords.Count();
-        CopyToClipboard = ReactiveCommand.Create(() => { Avalonia.Application.Current?.Clipboard?.SetTextAsync("Yoyoy"); });
+        CopyToClipboard = ReactiveCommand.Create((string password) => { Avalonia.Application.Current?.Clipboard?.SetTextAsync(password); });
+        DeletePassword = ReactiveCommand.Create((LiteDB.ObjectId id) =>
+        {
+            if (Db.Instance.Passwords.Delete(id))
+            {
+                var item = Passwords.First(x => x.Id == new LiteDB.ObjectId(id));
+                Passwords.Remove(item);
+            }
+        });
         Add = ReactiveCommand.Create(() =>
         {
             Db.Instance.AddPassword(new() { Name = Name, Password = Password });
-            Count = Db.Instance.Passwords.Count();
             Name = string.Empty;
             Password = string.Empty;
         });
@@ -40,5 +54,15 @@ public class MainWindowViewModel : ViewModelBase
             PassChar = PassChar == "*" ? null : "*";
             ShowPassText = PassChar == null ? "Hide" : "Show";
         });
+
+        var canSearch = this.WhenAnyValue(
+            x => x.SearchText,
+            x => !string.IsNullOrWhiteSpace(x)
+        );
+        Search = ReactiveCommand.Create(() =>
+        {
+            Passwords = new(Db.Instance.Passwords.Find(x => x.Name.Contains(SearchText ?? string.Empty)).ToList());
+            System.Console.WriteLine(Passwords.Count);
+        }, canSearch);
     }
 }
