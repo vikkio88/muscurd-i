@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             d:DesignHeight="450"
+             x:Class="Muscurdi.Views.ListView">
+  <DockPanel LastChildFill="True">
+    <Border Height="40" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top">
+      <TextBlock HorizontalAlignment="Center" FontSize="30">Stored Passwords</TextBlock>
+    </Border>
+    <Border Height="30" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Bottom">
+      <Button Command="{Binding GoToAdd}">Add New</Button>
+    </Border>
+    <StackPanel Margin="10" HorizontalAlignment="Center">
+      <DockPanel LastChildFill="True">
+        <Button DockPanel.Dock="Right" Command="{Binding Search}">Search</Button>
+        <TextBox Text="{Binding SearchText}" Watermark="Search Password" />
+      </DockPanel>
+      <!-- Results -->
+      <StackPanel x:Name="SearchRoot" Margin="4">
+        <TextBlock Margin="4" IsVisible="{Binding !!!Passwords.Count}">-</TextBlock>
+        <ItemsControl Items="{Binding Passwords}" IsVisible="{Binding !!Passwords.Count}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <DockPanel LastChildFill="True" VerticalAlignment="Center">
+                <Button DockPanel.Dock="Right" Command="{Binding #SearchRoot.DataContext.DeletePassword}" CommandParameter="{Binding Id}">Del</Button>
+                <Button DockPanel.Dock="Right" Command="{Binding #SearchRoot.DataContext.CopyToClipboard}" CommandParameter="{Binding Password}">Copy</Button>
+                <TextBlock Text="{Binding Name}" />
+              </DockPanel>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </StackPanel>
+    </StackPanel>
+  </DockPanel>
+</UserControl>

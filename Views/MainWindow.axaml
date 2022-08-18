@@ -1,8 +1,10 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:Muscurdi.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:rxui="clr-namespace:Avalonia.ReactiveUI;assembly=Avalonia.ReactiveUI"
+        xmlns:views="using:Muscurdi.Views"
+        xmlns:vm="using:Muscurdi.ViewModels"
         mc:Ignorable="d"
         d:DesignWidth="800"
         d:DesignHeight="450"
@@ -12,51 +14,15 @@
         x:Class="Muscurdi.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="muscurdi">
-
-    <Design.DataContext>
-        <vm:MainWindowViewModel />
-    </Design.DataContext>
-
-    <StackPanel>
-        <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-        <!-- Add -->
-        <Border BorderBrush="Black" BorderThickness="1" Margin="2" Padding="2">
-            <StackPanel Orientation="Vertical">                
-                <TextBox Text="{Binding Name}" Watermark="Name" />
-                <DockPanel LastChildFill="True">
-                    <Button DockPanel.Dock="Right" Command="{Binding ShowPass}" Content="{Binding ShowPassText}" />
-                    <TextBox Text="{Binding Password}" Watermark="Password" PasswordChar="{Binding PassChar}" />
-                </DockPanel>
-                <DockPanel LastChildFill="True">
-                    <Button DockPanel.Dock="Left" Command="{Binding Add}">Add</Button>
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" IsVisible="{Binding !!Error}" Text="{Binding Error}" Foreground="White" Background="Red"/>
-                </DockPanel>
-            </StackPanel>
-        </Border>
-        <!-- Search -->
-        <Border BorderBrush="Black" BorderThickness="1" Margin="2" Padding="2">
-            <StackPanel Orientation="Vertical">
-                <DockPanel LastChildFill="True">
-                    <Button DockPanel.Dock="Right" Command="{Binding Search}">Search</Button>
-                    <TextBox Text="{Binding SearchText}" Watermark="Search Password" />
-                </DockPanel>
-                <!-- Results -->
-                <TextBlock Margin="4" DockPanel.Dock="Top" IsVisible="{Binding !!!Passwords.Count}">-</TextBlock>
-                <StackPanel x:Name="SearchRoot">
-                    <ItemsControl Items="{Binding Passwords}" IsVisible="{Binding !!Passwords.Count}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <DockPanel LastChildFill="True">
-                                    <Button DockPanel.Dock="Right" Command="{Binding #SearchRoot.DataContext.DeletePassword}" CommandParameter="{Binding Id}">Del</Button>
-                                    <Button DockPanel.Dock="Right" Command="{Binding #SearchRoot.DataContext.CopyToClipboard}" CommandParameter="{Binding Password}">Copy</Button>
-                                    <TextBlock Text="{Binding Name}" />
-                                </DockPanel>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </StackPanel>
-            </StackPanel>
-        </Border>
-    </StackPanel>
-
+    <DockPanel LastChildFill="True">
+        <rxui:RoutedViewHost Router="{Binding Router}" DockPanel.Dock="Top">
+            <!-- PageTransition="{x:Null}"> -->
+            <rxui:RoutedViewHost.PageTransition>
+                <CrossFade Duration="0:00:00.200" />
+            </rxui:RoutedViewHost.PageTransition>
+            <rxui:RoutedViewHost.DefaultContent>
+                <views:SplashView />
+            </rxui:RoutedViewHost.DefaultContent>
+        </rxui:RoutedViewHost>
+    </DockPanel>
 </Window>

@@ -1,14 +1,12 @@
 namespace Muscurdi.Views;
-
-
+using Muscurdi.ViewModels;
 using Avalonia.Markup.Xaml;
-
 using Avalonia.ReactiveUI;
 using ReactiveUI;
 
-public partial class MainWindow : ReactiveWindow<ViewModels.MainWindowViewModel>
+public partial class AddView : ReactiveUserControl<AddViewModel>
 {
-    public MainWindow()
+    public AddView()
     {
         this.WhenActivated(disposables => {});
         AvaloniaXamlLoader.Load(this);

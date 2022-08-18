@@ -1,0 +1,5 @@
+<StackPanel>
+    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+    <!-- Add -->
+    
+</StackPanel>
