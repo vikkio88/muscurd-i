@@ -7,8 +7,11 @@
              d:DesignHeight="450"
              x:Class="Muscurdi.Views.AddView">
   <DockPanel LastChildFill="True">
-    <Border Height="40" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top">
-      <TextBlock HorizontalAlignment="Center" FontSize="30">Add New Password</TextBlock>
+    <Border Height="50" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top">
+      <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+        <TextBlock HorizontalAlignment="Center" FontSize="20">Muscurd-I</TextBlock>
+        <TextBlock HorizontalAlignment="Center" FontSize="16">Add New Password</TextBlock>
+      </StackPanel>
     </Border>
     <Border Height="30" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Bottom">
       <Button Command="{Binding Back}">Back</Button>

@@ -7,11 +7,24 @@
              d:DesignHeight="450"
              x:Class="Muscurdi.Views.SplashView">
   <DockPanel LastChildFill="True">
-    <Border Height="40" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top">
-      <TextBlock HorizontalAlignment="Center" FontSize="30">Muscurd-I : Password Manager</TextBlock>
+    <Border Height="50" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top">
+      <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+        <TextBlock HorizontalAlignment="Center" FontSize="20">Muscurd-I</TextBlock>
+        <TextBlock HorizontalAlignment="Center" FontSize="16">Password Manager</TextBlock>
+      </StackPanel>
     </Border>
-    <StackPanel Margin="10" VerticalAlignment="Center">
-      <Button Command="{Binding GoToList}">List</Button>
+    <StackPanel Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center">
+      <TextBox Watermark="Master Password"
+               Text="{Binding Password}"
+               Width="200"
+               MaxWidth="200"
+               FontSize="16"
+               PasswordChar="*" />
+      <Button Width="200"
+              Margin="3"
+              Command="{Binding GoToList}"
+              VerticalContentAlignment="Center"
+              HorizontalContentAlignment="Center">Login</Button>
     </StackPanel>
   </DockPanel>
 </UserControl>

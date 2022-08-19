@@ -40,20 +40,15 @@ public class AddViewModel : ReactiveObject, IRoutableViewModel
             var result = Db.Instance.AddPassword(new() { Name = Name, Password = Password });
             if (!result)
             {
-                System.Console.WriteLine("Error");
                 Error = $"Can't add {Name}, probably exists already";
                 DispatcherTimer.RunOnce(
-                    () =>
-                    {
-                        System.Console.WriteLine("Reset");
-                        Error = null;
-                    },
+                    () => Error = null,
                     System.TimeSpan.FromSeconds(3)
                 );
             }
             Name = string.Empty;
             Password = string.Empty;
-
+            Back.Execute();
         });
         ShowPass = ReactiveCommand.Create(() =>
         {

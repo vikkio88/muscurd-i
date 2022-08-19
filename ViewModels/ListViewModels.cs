@@ -25,6 +25,7 @@ public class ListViewModel : ReactiveObject, IRoutableViewModel
 
     public ListViewModel(IScreen screen)
     {
+        System.Console.WriteLine("Building ListVM");
         HostScreen = screen;
         GoToAdd = ReactiveCommand.CreateFromObservable(() => HostScreen.Router.Navigate.Execute(new AddViewModel(this.HostScreen)));
         CopyToClipboard = ReactiveCommand.Create((string password) => { Avalonia.Application.Current?.Clipboard?.SetTextAsync(password); });
