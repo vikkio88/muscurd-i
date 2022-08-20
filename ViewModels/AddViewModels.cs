@@ -48,7 +48,7 @@ public class AddViewModel : ReactiveObject, IRoutableViewModel
             }
             Name = string.Empty;
             Password = string.Empty;
-            Back.Execute();
+            HostScreen.Router.NavigateAndReset.Execute(new ListViewModel(this.HostScreen));
         });
         ShowPass = ReactiveCommand.Create(() =>
         {

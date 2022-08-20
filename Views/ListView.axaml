@@ -13,7 +13,11 @@
         <TextBlock HorizontalAlignment="Center" FontSize="16">Stored Passwords</TextBlock>
       </StackPanel>
     </Border>
-    <Border Height="30" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Bottom">
+    <Border Height="30"
+            BorderBrush="Black"
+            BorderThickness="1"
+            DockPanel.Dock="Bottom"
+            Background="White">
       <Button Command="{Binding GoToAdd}">Add New</Button>
     </Border>
     <StackPanel Margin="10" HorizontalAlignment="Center">
@@ -33,18 +37,28 @@
       </DockPanel>
       <!-- Results -->
       <StackPanel x:Name="SearchRoot" Margin="4">
-        <TextBlock Margin="4" IsVisible="{Binding !!!Passwords.Count}">-</TextBlock>
-        <ItemsControl Items="{Binding Passwords}" IsVisible="{Binding !!Passwords.Count}">
-          <ItemsControl.ItemTemplate>
-            <DataTemplate>
-              <DockPanel LastChildFill="True" VerticalAlignment="Center">
-                <Button DockPanel.Dock="Right" Command="{Binding #SearchRoot.DataContext.DeletePassword}" CommandParameter="{Binding Id}">Del</Button>
-                <Button DockPanel.Dock="Right" Command="{Binding #SearchRoot.DataContext.CopyToClipboard}" CommandParameter="{Binding Password}">Copy</Button>
-                <TextBlock Text="{Binding Name}" />
-              </DockPanel>
-            </DataTemplate>
-          </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        <TextBlock Margin="4" IsVisible="{Binding !!!Passwords.Count}" Text="{Binding SearchStatus}" />
+        <ScrollViewer VerticalScrollBarVisibility="Auto" IsVisible="{Binding !!Passwords.Count}" Height="160">
+          <ItemsControl Items="{Binding Passwords}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Border Width="350" BorderBrush="Black" BorderThickness="1" Margin="2">
+                  <DockPanel Width="350" LastChildFill="True" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <StackPanel DockPanel.Dock="Right" Margin="4,0,0,0" Orientation="Horizontal">
+                      <Button Command="{Binding #SearchRoot.DataContext.DeletePassword}" CommandParameter="{Binding Id}">Del</Button>
+                      <Button Command="{Binding #SearchRoot.DataContext.CopyToClipboard}" CommandParameter="{Binding Password}">Copy</Button>
+                    </StackPanel>
+                    <TextBlock Margin="2,0,0,0"
+                               DockPanel.Dock="Left"
+                               Text="{Binding Name}"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center" />
+                  </DockPanel>
+                </Border>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </ScrollViewer>
       </StackPanel>
     </StackPanel>
   </DockPanel>

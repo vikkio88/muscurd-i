@@ -15,11 +15,7 @@
         Icon="/Assets/avalonia-logo.ico"
         Title="muscurdi">
     <DockPanel LastChildFill="True">
-        <rxui:RoutedViewHost Router="{Binding Router}" DockPanel.Dock="Top">
-            <!-- PageTransition="{x:Null}"> -->
-            <rxui:RoutedViewHost.PageTransition>
-                <CrossFade Duration="0:00:00.200" />
-            </rxui:RoutedViewHost.PageTransition>
+        <rxui:RoutedViewHost Router="{Binding Router}" DockPanel.Dock="Top" PageTransition="{x:Null}">
             <rxui:RoutedViewHost.DefaultContent>
                 <views:SplashView />
             </rxui:RoutedViewHost.DefaultContent>

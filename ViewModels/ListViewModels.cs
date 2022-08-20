@@ -21,11 +21,13 @@ public class ListViewModel : ReactiveObject, IRoutableViewModel
 
     private string? _searchText = null;
     public string? SearchText { get => _searchText; set => this.RaiseAndSetIfChanged(ref _searchText, value); }
+
+    private string? _searchStatus = "Here there will be your passwords...";
+    public string? SearchStatus { get => _searchStatus; set => this.RaiseAndSetIfChanged(ref _searchStatus, value); }
     public ReactiveCommand<Unit, Unit> Search { get; set; }
 
     public ListViewModel(IScreen screen)
     {
-        System.Console.WriteLine("Building ListVM");
         HostScreen = screen;
         GoToAdd = ReactiveCommand.CreateFromObservable(() => HostScreen.Router.Navigate.Execute(new AddViewModel(this.HostScreen)));
         CopyToClipboard = ReactiveCommand.Create((string password) => { Avalonia.Application.Current?.Clipboard?.SetTextAsync(password); });
@@ -45,7 +47,15 @@ public class ListViewModel : ReactiveObject, IRoutableViewModel
         Search = ReactiveCommand.Create(() =>
         {
             Passwords = new(Db.Instance.Passwords.Find(x => x.Name.Contains(SearchText ?? string.Empty)).ToList());
-            System.Console.WriteLine(Passwords.Count);
+            if (Passwords.Count == 0)
+            {
+                SearchStatus = $"No Results for \"{SearchText}\"";
+            }
+            else
+            {
+                SearchStatus = null;
+            }
         }, canSearch);
+
     }
 }
