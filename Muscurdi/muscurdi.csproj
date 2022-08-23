@@ -27,5 +27,8 @@
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.14" />
     <PackageReference Include="LiteDb" Version="5.0.12" />
 	<PackageReference Include="XamlNameReferenceGenerator" Version="1.3.4" />
+  <Content Include="config\**\*.*">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </Content>
   </ItemGroup>
 </Project>
