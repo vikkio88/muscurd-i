@@ -29,4 +29,11 @@ public class MasterPasswordTests
         var result = Assert.Throws<System.ArgumentException>(() => MasterPassword.Make("nope-yeah-yeah-mamm-juve"));
         Assert.Contains("appendix", result.Message);
     }
+
+    [Fact]
+    public void MasterPasswordReturnsMemorable()
+    {
+        var password = MasterPassword.Make("nope-yeah-yeah-mamm-9999");
+        Assert.Equal("nope-yeah-yeah-mamm-9999", password.ToMemorable());
+    }
 }

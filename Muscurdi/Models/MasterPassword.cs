@@ -38,6 +38,12 @@ public class MasterPassword
         };
     }
 
+    public string ToMemorable()
+    {
+        var (one, two, three) = PrefixWords;
+        return $"{one}-{two}-{three}-{FinalWord}-{NumericAppendix}";
+    }
+
     public override string ToString()
     {
         var (one, two, three) = PrefixWords;
