@@ -1,5 +1,6 @@
-using System.Linq;
 using System;
+using System.Linq;
+using System.Collections.Generic;
 namespace Muscurdi.Models;
 public class MasterPassword
 {
@@ -9,6 +10,15 @@ public class MasterPassword
     private string FinalWord { get; init; } = string.Empty;
     private int NumericAppendix { get; init; }
 
+    public static MasterPassword Make(List<string> prefix, string final, int numericAppendix)
+    {
+        return new()
+        {
+            PrefixWords = (prefix[0], prefix[1], prefix[2]),
+            FinalWord = final,
+            NumericAppendix = numericAppendix
+        };
+    }
     public static MasterPassword Make(string memorable)
     {
         var split = memorable.Split('-');
@@ -22,20 +32,15 @@ public class MasterPassword
             throw new ArgumentException($"Wrong size of words: {splitCount}, instead of {MEMORABLE_SIZE * WORD_SIZE}");
         }
 
-        int numberAppedinx;
-        var parseResult = int.TryParse(split[4], out numberAppedinx);
+        int numberAppendix;
+        var parseResult = int.TryParse(split[4], out numberAppendix);
 
-        if (!parseResult || (numberAppedinx < 1000 || numberAppedinx > 9999))
+        if (!parseResult || (numberAppendix < 1000 || numberAppendix > 9999))
         {
             throw new ArgumentException($"Invalid numeric appendix");
         }
 
-        return new()
-        {
-            PrefixWords = (split[0], split[1], split[2]),
-            FinalWord = split[3],
-            NumericAppendix = numberAppedinx
-        };
+        return Make(split.Take(3).ToList(), split.TakeLast(2).First(), numberAppendix);
     }
 
     public string ToMemorable()
