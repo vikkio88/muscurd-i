@@ -36,4 +36,6 @@ public class MasterPasswordTests
         var password = MasterPassword.Make("nope-yeah-yeah-mamm-9999");
         Assert.Equal("nope-yeah-yeah-mamm-9999", password.ToMemorable());
     }
+
+    // @TODO: Add tests on Make([], str, int)
 }
