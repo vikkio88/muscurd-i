@@ -12,6 +12,22 @@ public class MasterPassword
 
     public static MasterPassword Make(List<string> prefix, string final, int numericAppendix)
     {
+        if (prefix.Count != (MEMORABLE_SIZE - 2))
+        {
+            throw new ArgumentException($"Not enough prefix words: expected {MEMORABLE_SIZE - 2} got {prefix.Count}");
+        }
+
+        if (numericAppendix < 1000 || numericAppendix > 9999)
+        {
+            throw new ArgumentException($"Wrong numeric appendix {numericAppendix}");
+        }
+
+        var totalLength = prefix.Sum(w => w.Length) + final.Length + $"{numericAppendix}".Length;
+        if (totalLength != MEMORABLE_SIZE * WORD_SIZE)
+        {
+            throw new ArgumentException($"Wrong size of words: {totalLength}, instead of {MEMORABLE_SIZE * WORD_SIZE}");
+        }
+
         return new()
         {
             PrefixWords = (prefix[0], prefix[1], prefix[2]),
@@ -25,11 +41,6 @@ public class MasterPassword
         if (split.Count() != MEMORABLE_SIZE)
         {
             throw new ArgumentException($"Wrong size of memorable: {split.Count()}, instead of {MEMORABLE_SIZE}");
-        }
-        var splitCount = split.Select(w => w.Length).Sum();
-        if (splitCount != MEMORABLE_SIZE * WORD_SIZE)
-        {
-            throw new ArgumentException($"Wrong size of words: {splitCount}, instead of {MEMORABLE_SIZE * WORD_SIZE}");
         }
 
         int numberAppendix;
@@ -47,6 +58,11 @@ public class MasterPassword
     {
         var (one, two, three) = PrefixWords;
         return $"{one}-{two}-{three}-{FinalWord}-{NumericAppendix}";
+    }
+
+    public string ToKey()
+    {
+        return $"{this}".Replace("-", "");
     }
 
     public override string ToString()
