@@ -22,7 +22,7 @@
                PasswordChar="*" />
       <Button Width="200"
               Margin="3"
-              Command="{Binding GoToList}"
+              Command="{Binding Login}"
               VerticalContentAlignment="Center"
               HorizontalContentAlignment="Center">Login</Button>
     </StackPanel>

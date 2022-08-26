@@ -37,7 +37,7 @@ public class AddViewModel : ReactiveObject, IRoutableViewModel
 
         Add = ReactiveCommand.Create(() =>
         {
-            var result = Db.Instance.AddPassword(new() { Name = Name, Password = Password });
+            var result = S.Instance.Db.AddPassword(new() { Name = Name, Password = Password });
             if (!result)
             {
                 Error = $"Can't add {Name}, probably exists already";

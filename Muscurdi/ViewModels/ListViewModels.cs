@@ -33,7 +33,7 @@ public class ListViewModel : ReactiveObject, IRoutableViewModel
         CopyToClipboard = ReactiveCommand.Create((string password) => { Avalonia.Application.Current?.Clipboard?.SetTextAsync(password); });
         DeletePassword = ReactiveCommand.Create((LiteDB.ObjectId id) =>
         {
-            if (Db.Instance.Passwords.Delete(id))
+            if (S.Instance.Db.Passwords.Delete(id))
             {
                 var item = Passwords.First(x => x.Id == new LiteDB.ObjectId(id));
                 Passwords.Remove(item);
@@ -46,7 +46,7 @@ public class ListViewModel : ReactiveObject, IRoutableViewModel
         );
         Search = ReactiveCommand.Create(() =>
         {
-            Passwords = new(Db.Instance.Passwords.Find(x => x.Name.Contains(SearchText ?? string.Empty)).ToList());
+            Passwords = new(S.Instance.Db.Passwords.Find(x => x.Name.Contains(SearchText ?? string.Empty)).ToList());
             if (Passwords.Count == 0)
             {
                 SearchStatus = $"No Results for \"{SearchText}\"";

@@ -35,6 +35,7 @@ public static class Crypto
     }
     public static string Decrypt(string encryptedText, MasterPassword password)
     {
+        //@TODO if you try to decrypt with a wrong master password this throws
         var key = getKey(password);
         byte[] iv = new byte[16];
         byte[] buffer = Convert.FromBase64String(encryptedText);

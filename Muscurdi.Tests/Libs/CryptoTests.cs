@@ -14,4 +14,6 @@ public class CryptoTests
         var decrytpted = Crypto.Decrypt(encrypted, masterPassword);
         Assert.Equal(decrytpted, text);
     }
+
+    //@TODO if you try to decrypt with a wrong master password this throws, needs testing
 }
