@@ -23,15 +23,13 @@ public class MainWindowViewModel : ReactiveObject, IScreen
             // @TODO: in case this happens need to showcase a password generator
             var mp = Libs.MasterPasswordHelper.Generate();
             System.Console.WriteLine(mp.ToMemorable());
-            S.Instance.GetDb(mp);
-            S.Instance.CloseDb();
         }
 
         Login = ReactiveCommand.Create(() =>
         {
             try
             {
-                S.Instance.GetDb(MasterPassword.Make(Password));
+                S.Instance.Db?.Init(MasterPassword.Make(Password));
             }
             catch (System.Exception exc) when (exc is Exceptions.MasterPasswordException || exc is Exceptions.InvalidPasswordException)
             {

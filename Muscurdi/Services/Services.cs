@@ -8,15 +8,15 @@ public class S : Singleton<S>
 {
     private Db? _db;
 
-    public Db Db { get => _db; }
-    public Db GetDb(MasterPassword masterPassword)
+    public Db? Db
     {
-        if (_db is null) _db = new Db(masterPassword);
-        return _db;
-    }
-
-    public void CloseDb()
-    {
-        _db = null;
+        get
+        {
+            if (_db is null)
+            {
+                _db = new();
+            }
+            return _db;
+        }
     }
 }

@@ -46,6 +46,7 @@ public class ListViewModel : ReactiveObject, IRoutableViewModel
         );
         Search = ReactiveCommand.Create(() =>
         {
+            // Moved this to the Db instance so we can Decrypt
             Passwords = new(S.Instance.Db.Passwords.Find(x => x.Name.Contains(SearchText ?? string.Empty)).ToList());
             if (Passwords.Count == 0)
             {

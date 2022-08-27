@@ -36,8 +36,6 @@
                  Height="50"
                  HorizontalAlignment="Center"
                  VerticalAlignment="Center"
-                 VerticalContentAlignment="Center"
-                 HorizontalContentAlignment="Center"
                  IsVisible="{Binding !!Error}"
                  Text="{Binding Error}"
                  Foreground="White"

@@ -8,22 +8,28 @@ public class Db
 {
     private const string MUSCURDI_DB_FILENAME = "Muscurdi.db";
     private const string MASTER_KEY_ID = "MASTER_KEY_ID";
+    private const string KEY_COLLECTION = "keys";
+    private const string PASSWORD_ENTRIES_COLLECTION = "passwordEntries";
     private MasterPassword? _key;
     private LiteDB.ILiteDatabase _db;
-    public LiteDB.ILiteCollection<PasswordEntry> Passwords { get; init; }
+    public LiteDB.ILiteCollection<PasswordEntry>? Passwords { get; set; } = null;
 
     public static bool IsDbInitialised()
     {
         var db = new LiteDB.LiteDatabase(MUSCURDI_DB_FILENAME);
-        var keys = db.GetCollection<Key>("keys");
+        var keys = db.GetCollection<Key>(KEY_COLLECTION);
         var key = keys.FindById(MASTER_KEY_ID);
         return (key is not null);
     }
 
-    public Db(MasterPassword masterPassword)
+    public Db()
     {
         _db = new LiteDB.LiteDatabase(MUSCURDI_DB_FILENAME);
-        var keys = _db.GetCollection<Key>("keys");
+    }
+
+    public void Init(MasterPassword masterPassword)
+    {
+        var keys = _db.GetCollection<Key>(KEY_COLLECTION);
         var key = keys.FindById(MASTER_KEY_ID);
         if (key is null)
         {
@@ -45,7 +51,7 @@ public class Db
 
         if (_key is null) throw new InvalidPasswordException("Wrong Master Password");
 
-        Passwords = _db.GetCollection<PasswordEntry>("passwordEntries");
+        Passwords = _db.GetCollection<PasswordEntry>(PASSWORD_ENTRIES_COLLECTION);
     }
 
     public bool AddPassword(PasswordEntry password)
