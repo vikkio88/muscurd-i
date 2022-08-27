@@ -2,6 +2,7 @@
 using System.Reactive;
 using Muscurdi.Services;
 using Muscurdi.Models;
+using Avalonia.Threading;
 
 namespace Muscurdi.ViewModels;
 public class MainWindowViewModel : ReactiveObject, IScreen
@@ -9,7 +10,10 @@ public class MainWindowViewModel : ReactiveObject, IScreen
     public RoutingState Router { get; } = new RoutingState();
     public ReactiveCommand<Unit, Unit> Login { get; }
 
-    public string Password { get; set; } = string.Empty;
+    public string _password = string.Empty;
+    public string Password { get => _password; set => this.RaiseAndSetIfChanged(ref _password, value); }
+    public string? _error = null;
+    public string? Error { get => _error; set => this.RaiseAndSetIfChanged(ref _error, value); }
 
     public MainWindowViewModel()
     {
@@ -29,15 +33,23 @@ public class MainWindowViewModel : ReactiveObject, IScreen
             {
                 S.Instance.GetDb(MasterPassword.Make(Password));
             }
-            catch (System.InvalidOperationException exc)
+            catch (System.Exception exc) when (exc is Exceptions.MasterPasswordException || exc is Exceptions.InvalidPasswordException)
             {
-                // Need to check what happens with wrong strings to create Master password
-                System.Console.WriteLine("Invalid Password");
+                reportLoginError(exc.Message);
                 return;
             }
 
-            // this seems to work fine
             Router.Navigate.Execute(new ListViewModel(this));
         });
+    }
+
+    private void reportLoginError(string message)
+    {
+        Error = message;
+        Password = string.Empty;
+        DispatcherTimer.RunOnce(
+           () => Error = null,
+           System.TimeSpan.FromSeconds(3)
+       );
     }
 }

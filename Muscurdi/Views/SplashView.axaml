@@ -13,18 +13,36 @@
         <TextBlock HorizontalAlignment="Center" FontSize="16">Password Manager</TextBlock>
       </StackPanel>
     </Border>
-    <StackPanel Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center">
+    <StackPanel Margin="10" HorizontalAlignment="Center">
       <TextBox Watermark="Master Password"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Center"
+               VerticalContentAlignment="Center"
+               HorizontalContentAlignment="Center"
                Text="{Binding Password}"
-               Width="200"
-               MaxWidth="200"
-               FontSize="16"
-               PasswordChar="*" />
-      <Button Width="200"
-              Margin="3"
+               Width="250"
+               MaxWidth="250"
+               FontSize="14"
+               PasswordChar="*"
+               Margin="0,5,0,0" />
+      <Button Width="250"
               Command="{Binding Login}"
+              VerticalAlignment="Center"
+              HorizontalAlignment="Center"
               VerticalContentAlignment="Center"
-              HorizontalContentAlignment="Center">Login</Button>
+              HorizontalContentAlignment="Center"
+              Margin="0,3,0,0">Login</Button>
+      <TextBlock Width="350"
+                 Height="50"
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Center"
+                 VerticalContentAlignment="Center"
+                 HorizontalContentAlignment="Center"
+                 IsVisible="{Binding !!Error}"
+                 Text="{Binding Error}"
+                 Foreground="White"
+                 Background="Red"
+                 Margin="0,5,0,0" />
     </StackPanel>
   </DockPanel>
 </UserControl>
