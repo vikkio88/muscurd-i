@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Muscurdi.Exceptions;
 using Muscurdi.Libs;
 using Muscurdi.Models;
@@ -69,6 +71,16 @@ public class Db
 
         }
         return result is not null;
+    }
+
+    public List<PasswordEntry>? FindPasswordsByName(string query)
+    {
+        return Passwords?.Find(x => x.Name.Contains(query))
+        .Select(p =>
+        {
+            p.Password = Crypto.Decrypt(p.Password, _key) ?? "ERROR-DECRYPTING";
+            return p;
+        }).ToList();
     }
 
 }
