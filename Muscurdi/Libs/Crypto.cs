@@ -33,27 +33,36 @@ public static class Crypto
         }
         return Convert.ToBase64String(array);
     }
-    public static string Decrypt(string encryptedText, MasterPassword password)
+    /**
+    * Returns null if decrypt did not work
+    */
+    public static string? Decrypt(string encryptedText, MasterPassword password)
     {
-        //@TODO if you try to decrypt with a wrong master password this throws
-        var key = getKey(password);
-        byte[] iv = new byte[16];
-        byte[] buffer = Convert.FromBase64String(encryptedText);
-        using (Aes aes = Aes.Create())
+        try
         {
-            aes.Key = Encoding.UTF8.GetBytes(key);
-            aes.IV = iv;
-            ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
-            using (MemoryStream memoryStream = new MemoryStream(buffer))
+            var key = getKey(password);
+            byte[] iv = new byte[16];
+            byte[] buffer = Convert.FromBase64String(encryptedText);
+            using (Aes aes = Aes.Create())
             {
-                using (CryptoStream cryptoStream = new CryptoStream((Stream)memoryStream, decryptor, CryptoStreamMode.Read))
+                aes.Key = Encoding.UTF8.GetBytes(key);
+                aes.IV = iv;
+                ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
+                using (MemoryStream memoryStream = new MemoryStream(buffer))
                 {
-                    using (StreamReader streamReader = new StreamReader((Stream)cryptoStream))
+                    using (CryptoStream cryptoStream = new CryptoStream((Stream)memoryStream, decryptor, CryptoStreamMode.Read))
                     {
-                        return streamReader.ReadToEnd();
+                        using (StreamReader streamReader = new StreamReader((Stream)cryptoStream))
+                        {
+                            return streamReader.ReadToEnd();
+                        }
                     }
                 }
             }
+        }
+        catch (Exception exc)
+        {
+            return null;
         }
     }
 
