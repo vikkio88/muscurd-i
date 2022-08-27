@@ -8,7 +8,14 @@ namespace Muscurdi.ViewModels;
 public class MainWindowViewModel : ReactiveObject, IScreen
 {
     public RoutingState Router { get; } = new RoutingState();
+    public ReactiveCommand<Unit, Unit> GeneratePassword { get; }
     public ReactiveCommand<Unit, Unit> Login { get; }
+
+    public bool _isDbInitialised = false;
+    public bool IsDbInitialised { get => _isDbInitialised; set => this.RaiseAndSetIfChanged(ref _isDbInitialised, value); }
+
+    public string? _passChar = "*";
+    public string? PassChar { get => _passChar; set => this.RaiseAndSetIfChanged(ref _passChar, value); }
 
     public string _password = string.Empty;
     public string Password { get => _password; set => this.RaiseAndSetIfChanged(ref _password, value); }
@@ -17,13 +24,19 @@ public class MainWindowViewModel : ReactiveObject, IScreen
 
     public MainWindowViewModel()
     {
-        if (!Db.IsDbInitialised())
+        IsDbInitialised = Db.IsDbInitialised();
+        if (!IsDbInitialised)
         {
-
-            // @TODO: in case this happens need to showcase a password generator
+            PassChar = null;
             var mp = Libs.MasterPasswordHelper.Generate();
-            System.Console.WriteLine(mp.ToMemorable());
+            Password = mp.ToMemorable();
         }
+
+        GeneratePassword = ReactiveCommand.Create(() =>
+        {
+            var mp = Libs.MasterPasswordHelper.Generate();
+            Password = mp.ToMemorable();
+        });
 
         Login = ReactiveCommand.Create(() =>
         {
