@@ -1,4 +1,5 @@
 using System;
+using Muscurdi.Exceptions;
 using System.Linq;
 using System.Collections.Generic;
 namespace Muscurdi.Models;
@@ -14,18 +15,18 @@ public class MasterPassword
     {
         if (prefix.Count != (MEMORABLE_SIZE - 2))
         {
-            throw new ArgumentException($"Not enough prefix words: expected {MEMORABLE_SIZE - 2} got {prefix.Count}");
+            throw new MasterPasswordException($"Not enough prefix words: expected {MEMORABLE_SIZE - 2} got {prefix.Count}");
         }
 
         if (numericAppendix < 1000 || numericAppendix > 9999)
         {
-            throw new ArgumentException($"Wrong numeric appendix {numericAppendix}");
+            throw new MasterPasswordException($"Wrong numeric appendix {numericAppendix}");
         }
 
         var totalLength = prefix.Sum(w => w.Length) + final.Length + $"{numericAppendix}".Length;
         if (totalLength != MEMORABLE_SIZE * WORD_SIZE)
         {
-            throw new ArgumentException($"Wrong size of words: {totalLength}, instead of {MEMORABLE_SIZE * WORD_SIZE}");
+            throw new MasterPasswordException($"Wrong size of words: {totalLength}, instead of {MEMORABLE_SIZE * WORD_SIZE}");
         }
 
         return new()
@@ -40,7 +41,7 @@ public class MasterPassword
         var split = memorable.Split('-');
         if (split.Count() != MEMORABLE_SIZE)
         {
-            throw new ArgumentException($"Wrong size of memorable: {split.Count()}, instead of {MEMORABLE_SIZE}");
+            throw new MasterPasswordException($"Wrong size of memorable: {split.Count()}, instead of {MEMORABLE_SIZE}");
         }
 
         int numberAppendix;
@@ -48,7 +49,7 @@ public class MasterPassword
 
         if (!parseResult || (numberAppendix < 1000 || numberAppendix > 9999))
         {
-            throw new ArgumentException($"Invalid numeric appendix");
+            throw new MasterPasswordException($"Invalid numeric appendix");
         }
 
         return Make(split.Take(3).ToList(), split.TakeLast(2).First(), numberAppendix);
