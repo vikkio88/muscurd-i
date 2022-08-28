@@ -14,11 +14,14 @@ public class MainWindowViewModel : ReactiveObject, IScreen
     public bool _isDbInitialised = false;
     public bool IsDbInitialised { get => _isDbInitialised; set => this.RaiseAndSetIfChanged(ref _isDbInitialised, value); }
 
-    public string? _passChar = "*";
-    public string? PassChar { get => _passChar; set => this.RaiseAndSetIfChanged(ref _passChar, value); }
-
     public string _password = string.Empty;
-    public string Password { get => _password; set => this.RaiseAndSetIfChanged(ref _password, value); }
+    public string Password
+    {
+        get => _password; set
+        {
+            this.RaiseAndSetIfChanged(ref _password, value);
+        }
+    }
     public string? _error = null;
     public string? Error { get => _error; set => this.RaiseAndSetIfChanged(ref _error, value); }
 
@@ -27,7 +30,6 @@ public class MainWindowViewModel : ReactiveObject, IScreen
         IsDbInitialised = Db.IsDbInitialised();
         if (!IsDbInitialised)
         {
-            PassChar = null;
             var mp = Libs.MasterPasswordHelper.Generate();
             Password = mp.ToMemorable();
         }
@@ -37,6 +39,7 @@ public class MainWindowViewModel : ReactiveObject, IScreen
             var mp = Libs.MasterPasswordHelper.Generate();
             Password = mp.ToMemorable();
         });
+
 
         Login = ReactiveCommand.Create(() =>
         {

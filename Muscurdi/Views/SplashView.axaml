@@ -22,17 +22,15 @@
                 HorizontalContentAlignment="Center"
                 Command="{Binding GeneratePassword}">Generate</Button>
       </StackPanel>
-      <TextBox Watermark="Master Password"
-               VerticalAlignment="Center"
-               HorizontalAlignment="Center"
-               VerticalContentAlignment="Center"
-               HorizontalContentAlignment="Center"
-               Text="{Binding Password}"
-               Width="250"
-               MaxWidth="250"
-               FontSize="14"
-               PasswordChar="{Binding PassChar}"
-               Margin="0,5,0,0" />
+      <MaskedTextBox Watermark="Master Password"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Center"
+                     Mask="LLLL-LLLL-LLLL-LLLL-0000"
+                     Text="{Binding Password}"
+                     Width="250"
+                     MaxWidth="250"
+                     FontSize="14"
+                     Margin="0,5,0,0" />
       <Button Width="250"
               Command="{Binding Login}"
               VerticalAlignment="Center"
@@ -42,6 +40,7 @@
               Margin="0,3,0,0">Login</Button>
       <TextBlock Width="350"
                  Height="50"
+                 TextAlignment="Center"
                  HorizontalAlignment="Center"
                  VerticalAlignment="Center"
                  IsVisible="{Binding !!Error}"
