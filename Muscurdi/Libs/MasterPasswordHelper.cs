@@ -3,14 +3,19 @@ using Bogus;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
+using System;
 namespace Muscurdi.Libs;
 public static class MasterPasswordHelper
 {
     const string WORDLIST_PATH = "config/wordlist.json";
     public static MasterPassword Generate()
     {
-        string strExeFilePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
-        string strWorkPath = System.IO.Path.GetDirectoryName(strExeFilePath);
+        // for some reason this wont work on published bin
+        // string strExeFilePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+        // string strWorkPath = System.IO.Path.GetDirectoryName(strExeFilePath);
+        // Console.WriteLine($"{strExeFilePath} , {strWorkPath}");
+
+        var strWorkPath = "./";
         string wordsListFilePath = System.IO.Path.Combine(strWorkPath, WORDLIST_PATH);
 
         var faker = new Faker();
