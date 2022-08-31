@@ -7,7 +7,7 @@
              d:DesignHeight="450"
              x:Class="Muscurdi.Views.ListView">
   <DockPanel LastChildFill="True">
-    <Border Height="50" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top">
+    <Border Classes="Header" DockPanel.Dock="Top">
       <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
         <TextBlock HorizontalAlignment="Center" FontSize="20">Muscurd-I</TextBlock>
         <TextBlock HorizontalAlignment="Center" FontSize="16">Stored Passwords</TextBlock>
@@ -42,7 +42,7 @@
           <ItemsControl Items="{Binding Passwords}">
             <ItemsControl.ItemTemplate>
               <DataTemplate>
-                <Border Width="350" BorderBrush="Black" BorderThickness="1" Margin="2">
+                <Border Classes="Row">
                   <DockPanel Width="350" LastChildFill="True" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <StackPanel DockPanel.Dock="Right" Margin="4,0,0,0" Orientation="Horizontal">
                       <Button Command="{Binding #SearchRoot.DataContext.DeletePassword}" CommandParameter="{Binding Id}">Del</Button>

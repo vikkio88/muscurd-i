@@ -45,6 +45,7 @@ public class AddViewModel : ReactiveObject, IRoutableViewModel
                     () => Error = null,
                     System.TimeSpan.FromSeconds(3)
                 );
+                return;
             }
             Name = string.Empty;
             Password = string.Empty;

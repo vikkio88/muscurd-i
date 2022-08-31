@@ -7,7 +7,7 @@
              d:DesignHeight="450"
              x:Class="Muscurdi.Views.SplashView">
   <DockPanel LastChildFill="True">
-    <Border Height="50" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top">
+    <Border Classes="Header" DockPanel.Dock="Top">
       <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
         <TextBlock HorizontalAlignment="Center" FontSize="20">Muscurd-I</TextBlock>
         <TextBlock HorizontalAlignment="Center" FontSize="16">Password Manager</TextBlock>
@@ -38,16 +38,19 @@
               VerticalContentAlignment="Center"
               HorizontalContentAlignment="Center"
               Margin="0,3,0,0">Login</Button>
-      <TextBlock Width="350"
-                 Height="50"
-                 TextAlignment="Center"
-                 HorizontalAlignment="Center"
-                 VerticalAlignment="Center"
-                 IsVisible="{Binding !!Error}"
-                 Text="{Binding Error}"
-                 Foreground="White"
-                 Background="Red"
-                 Margin="0,5,0,0" />
+      <Border Classes="Error"
+              Margin="0,5,0,0"
+              Width="350"
+              Height="50"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center"
+              IsVisible="{Binding !!Error}">
+        <TextBlock TextAlignment="Center"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Text="{Binding Error}"
+                   Foreground="White" />
+      </Border>
     </StackPanel>
   </DockPanel>
 </UserControl>

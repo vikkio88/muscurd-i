@@ -14,7 +14,7 @@
         x:Class="Muscurdi.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="muscurdi">
-    <DockPanel LastChildFill="True">
+    <DockPanel LastChildFill="True" Background="#F9F7F7">
         <rxui:RoutedViewHost Router="{Binding Router}" DockPanel.Dock="Top" PageTransition="{x:Null}">
             <rxui:RoutedViewHost.DefaultContent>
                 <views:SplashView />
