@@ -2,15 +2,30 @@
     <Style Selector="Button">
         <Setter Property="Background" Value="#3F72AF" />
         <Setter Property="Foreground" Value="White" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <ContentPresenter x:Name="PART_ContentPresenter"
+                                  Background="{TemplateBinding Background}"
+                                  BorderBrush="{TemplateBinding BorderBrush}"
+                                  BorderThickness="{TemplateBinding BorderThickness}"
+                                  CornerRadius="{TemplateBinding CornerRadius}"
+                                  Content="{TemplateBinding Content}"
+                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                  Padding="{TemplateBinding Padding}"
+                                  RecognizesAccessKey="True"
+                                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+            </ControlTemplate>
+        </Setter>
     </Style>
-    <Style Selector="Button:pointerover">
+    <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
         <Setter Property="Background" Value="#112D4E" />
-        <Setter Property="Foreground" Value="White" />
+        <Setter Property="TextBlock.Foreground" Value="White" />
     </Style>
-    <Style Selector="Button:disabled">
+    <Style Selector="Button:disabled /template/ ContentPresenter#PART_ContentPresenter">
         <Setter Property="Opacity" Value=".7" />
         <Setter Property="Background" Value="#3F72AF" />
-        <Setter Property="Foreground" Value="White" />
+        <Setter Property="TextBlock.Foreground" Value="White" />
     </Style>
     <Style Selector="Border">
         <Setter Property="BorderBrush" Value="#112D4E" />
@@ -21,15 +36,24 @@
         <Setter Property="Height" Value="50" />
     </Style>
     <Style Selector="Border.Row">
+        <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Background" Value="#DBE2EF" />
         <Setter Property="Padding" Value="5" />
         <Setter Property="Width" Value="350" />
+        <Setter Property="Height" Value="50" />
         <Setter Property="Margin" Value="5" />
     </Style>
     <Style Selector="Border.Error">
         <Setter Property="Background" Value="#E64848" />
     </Style>
+    <Style Selector="Border.Success">
+        <Setter Property="Background" Value="#6de648" />
+    </Style>
     <Style Selector="TextBlock">
         <Setter Property="Foreground" Value="#112D4E" />
+    </Style>
+
+    <Style Selector="Button.IconBtn">
+        <Setter Property="Width" Value="50" />
     </Style>
 </Styles>

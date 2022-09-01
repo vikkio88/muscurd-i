@@ -20,8 +20,8 @@ public class AddViewModel : ReactiveObject, IRoutableViewModel
     private string? _passChar = "*";
     public string? PassChar { get => _passChar; set => this.RaiseAndSetIfChanged(ref _passChar, value); }
 
-    private string _showPassText = "Show";
-    public string ShowPassText { get => _showPassText; set => this.RaiseAndSetIfChanged(ref _showPassText, value); }
+    private string _showPassIcon = "fa fa-eye";
+    public string ShowPassIcon { get => _showPassIcon; set => this.RaiseAndSetIfChanged(ref _showPassIcon, value); }
 
 
     public ReactiveCommand<Unit, Unit> Add { get; set; }
@@ -54,7 +54,7 @@ public class AddViewModel : ReactiveObject, IRoutableViewModel
         ShowPass = ReactiveCommand.Create(() =>
         {
             PassChar = PassChar == "*" ? null : "*";
-            ShowPassText = PassChar == null ? "Hide" : "Show";
+            ShowPassIcon = PassChar == null ? "fa fa-eye-slash" : "fa fa-eye";
         });
     }
 }

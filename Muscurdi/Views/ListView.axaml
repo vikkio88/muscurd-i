@@ -5,6 +5,7 @@
              mc:Ignorable="d"
              d:DesignWidth="800"
              d:DesignHeight="450"
+             xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
              x:Class="Muscurdi.Views.ListView">
   <DockPanel LastChildFill="True">
     <Border Classes="Header" DockPanel.Dock="Top">
@@ -13,12 +14,10 @@
         <TextBlock HorizontalAlignment="Center" FontSize="16">Stored Passwords</TextBlock>
       </StackPanel>
     </Border>
-    <Border Height="30"
-            BorderBrush="Black"
-            BorderThickness="1"
-            DockPanel.Dock="Bottom"
-            Background="White">
-      <Button Command="{Binding GoToAdd}">Add New</Button>
+    <Border Height="40" DockPanel.Dock="Bottom" Background="White">
+      <Button Command="{Binding GoToAdd}" Classes="IconBtn">
+        <i:Icon Value="fa fa-plus" FontSize="16" />
+      </Button>
     </Border>
     <StackPanel Margin="10" HorizontalAlignment="Center">
       <DockPanel LastChildFill="True">
@@ -27,7 +26,7 @@
                 VerticalContentAlignment="Center"
                 HorizontalContentAlignment="Center"
                 Command="{Binding Search}">
-                Search
+          <i:Icon Value="fa fa-search" FontSize="16" />
         </Button>
         <TextBox Text="{Binding SearchText}"
                  Watermark="Search Password"
@@ -36,20 +35,33 @@
                  FontSize="14" />
       </DockPanel>
       <!-- Results -->
-      <StackPanel x:Name="SearchRoot" Margin="4">
+      <StackPanel x:Name="SearchRoot" Margin="4" Width="400">
         <TextBlock Margin="4" IsVisible="{Binding !!!Passwords.Count}" Text="{Binding SearchStatus}" />
+        <Border Classes="Success"
+                Margin="2"
+                Padding="5"
+                IsVisible="{Binding !!Message}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+          <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Message}" Foreground="White"/>
+        </Border>
         <ScrollViewer VerticalScrollBarVisibility="Auto" IsVisible="{Binding !!Passwords.Count}" Height="160">
           <ItemsControl Items="{Binding Passwords}">
             <ItemsControl.ItemTemplate>
               <DataTemplate>
                 <Border Classes="Row">
                   <DockPanel Width="350" LastChildFill="True" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <StackPanel DockPanel.Dock="Right" Margin="4,0,0,0" Orientation="Horizontal">
-                      <Button Command="{Binding #SearchRoot.DataContext.DeletePassword}" CommandParameter="{Binding Id}">Del</Button>
-                      <Button Command="{Binding #SearchRoot.DataContext.CopyToClipboard}" CommandParameter="{Binding Password}">Copy</Button>
+                    <StackPanel DockPanel.Dock="Right" Margin="4,0,0,4" Orientation="Horizontal">
+                      <Button Command="{Binding #SearchRoot.DataContext.DeletePassword}" CommandParameter="{Binding Id}">
+                        <i:Icon Value="fa fa-trash" FontSize="12" />
+                      </Button>
+                      <Button Command="{Binding #SearchRoot.DataContext.CopyToClipboard}" CommandParameter="{Binding Password}">
+                        <i:Icon Value="fa fa-copy" FontSize="12" />
+                      </Button>
                     </StackPanel>
-                    <TextBlock Margin="2,0,0,0"
+                    <TextBlock Margin="3,0,0,0"
                                DockPanel.Dock="Left"
+                               FontWeight="Bold"
                                Text="{Binding Name}"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center" />

@@ -7,6 +7,12 @@
              d:DesignHeight="450"
              x:Class="Muscurdi.Views.SplashView">
   <DockPanel LastChildFill="True">
+    <Border Height="30" DockPanel.Dock="Bottom" BorderThickness="0">
+      <StackPanel>
+        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10">v0.0.1</TextBlock>
+        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10">github.com/vikkio88/muscurd-i</TextBlock>
+      </StackPanel>
+    </Border>
     <Border Classes="Header" DockPanel.Dock="Top">
       <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
         <TextBlock HorizontalAlignment="Center" FontSize="20">Muscurd-I</TextBlock>
@@ -22,16 +28,17 @@
                 HorizontalContentAlignment="Center"
                 Command="{Binding GeneratePassword}">Generate</Button>
       </StackPanel>
-      <MaskedTextBox Watermark="Master Password"
+      <MaskedTextBox x:Name="LoginInput"
+                     Watermark="Master Password"
                      VerticalAlignment="Center"
                      HorizontalAlignment="Center"
                      Mask="LLLL-LLLL-LLLL-LLLL-0000"
                      Text="{Binding Password}"
-                     Width="250"
-                     MaxWidth="250"
+                     Width="205"
+                     MaxWidth="205"
                      FontSize="14"
                      Margin="0,5,0,0" />
-      <Button Width="250"
+      <Button Width="205"
               Command="{Binding Login}"
               VerticalAlignment="Center"
               HorizontalAlignment="Center"

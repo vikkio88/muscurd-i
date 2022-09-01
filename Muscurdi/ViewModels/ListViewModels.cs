@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 
 using Muscurdi.Services;
 using Muscurdi.Models;
+using Avalonia.Threading;
 
 public class ListViewModel : ReactiveObject, IRoutableViewModel
 {
@@ -24,13 +25,24 @@ public class ListViewModel : ReactiveObject, IRoutableViewModel
 
     private string? _searchStatus = "Here there will be your passwords...";
     public string? SearchStatus { get => _searchStatus; set => this.RaiseAndSetIfChanged(ref _searchStatus, value); }
+
+    private string? _message = null;
+    public string? Message { get => _message; set => this.RaiseAndSetIfChanged(ref _message, value); }
     public ReactiveCommand<Unit, Unit> Search { get; set; }
 
     public ListViewModel(IScreen screen)
     {
         HostScreen = screen;
         GoToAdd = ReactiveCommand.CreateFromObservable(() => HostScreen.Router.Navigate.Execute(new AddViewModel(this.HostScreen)));
-        CopyToClipboard = ReactiveCommand.Create((string password) => { Avalonia.Application.Current?.Clipboard?.SetTextAsync(password); });
+        CopyToClipboard = ReactiveCommand.Create((string password) =>
+        {
+            Avalonia.Application.Current?.Clipboard?.SetTextAsync(password);
+            Message = "Copied to Clipboard!";
+            DispatcherTimer.RunOnce(
+                () => Message = null,
+                System.TimeSpan.FromSeconds(3)
+            );
+        });
         DeletePassword = ReactiveCommand.Create((LiteDB.ObjectId id) =>
         {
             if (S.Instance.Db.Passwords.Delete(id))

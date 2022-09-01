@@ -1,6 +1,8 @@
 ﻿using Avalonia;
 using Avalonia.ReactiveUI;
 using System;
+using Projektanker.Icons.Avalonia;
+using Projektanker.Icons.Avalonia.FontAwesome;
 
 namespace Muscurdi;
 class Program
@@ -16,6 +18,7 @@ class Program
 
         return AppBuilder.Configure<App>()
             .UsePlatformDetect()
+            .WithIcons(container => container.Register<FontAwesomeIconProvider>())
             .LogToTrace()
             .UseReactiveUI();
     }
