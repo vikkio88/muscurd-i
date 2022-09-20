@@ -1,0 +1,25 @@
+name: On Release Published
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build-publish:
+    timeout-minutes: 20
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+ 
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+    
+    - name: Build Binary Linux
+      run: dotnet publish -c Release -o publish -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true -p:RuntimeIdentifier=linux-x64 -p:IncludeNativeLibrariesForSelfExtract=true -p:OutputType=WinExe
+      working-directory: Muscurdi
+    
+    - name: Checkout if files are there
+      run: ls && ls publish
+      working-directory: Muscurdi
