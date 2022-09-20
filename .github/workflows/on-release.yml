@@ -47,15 +47,17 @@ jobs:
     - name: Upload Bin Linux
       uses: djn24/add-asset-to-release@v1
       with:
+        token: ${{secrets.GITHUB_TOKEN}}
         path: '/bin_release/Muscurdi_linux.zip'
 
     - name: Upload Bin Win
       uses: djn24/add-asset-to-release@v1
       with:
+        token: ${{secrets.GITHUB_TOKEN}}
         path: '/bin_release/Muscurdi_win.zip'
 
     - name: Upload Bin Mac
       uses: djn24/add-asset-to-release@v1
       with:
+        token: ${{secrets.GITHUB_TOKEN}}
         path: '/bin_release/Muscurdi_osx.zip'
-    
