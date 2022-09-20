@@ -16,10 +16,16 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
     
+    - name: Creating Bin folder
+      run: mkdir bin_release
+    
     - name: Build Binary Linux
       run: dotnet publish -c Release -o publish -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true -p:RuntimeIdentifier=linux-x64 -p:IncludeNativeLibrariesForSelfExtract=true -p:OutputType=WinExe
       working-directory: Muscurdi
     
-    - name: Checkout if files are there
-      run: ls && ls publish
+    - name: Zip Binary
+      run: tar -cvzf "linux_bin.zip" "publish" && mv linux_bin.zip ../bin_release 
       working-directory: Muscurdi
+    
+    - name: Check Files
+      run: ls bin_release 
