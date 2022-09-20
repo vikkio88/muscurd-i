@@ -1,4 +1,5 @@
 bin/
 obj/
 publish/
+Muscurdi_bin/
 *.db

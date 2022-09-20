@@ -3,6 +3,7 @@ using System.Reactive;
 using Muscurdi.Services;
 using Muscurdi.Models;
 using Avalonia.Threading;
+using Muscurdi.Libs;
 
 namespace Muscurdi.ViewModels;
 public class MainWindowViewModel : ReactiveObject, IScreen
@@ -13,6 +14,8 @@ public class MainWindowViewModel : ReactiveObject, IScreen
 
     public bool _isDbInitialised = false;
     public bool IsDbInitialised { get => _isDbInitialised; set => this.RaiseAndSetIfChanged(ref _isDbInitialised, value); }
+
+    public string AppVersion { get => $"version: {AssemblyInfoParser.GetCommitHashFromAssembly()}"; }
 
     public string _password = string.Empty;
     public string Password
