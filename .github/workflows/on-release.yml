@@ -21,27 +21,27 @@ jobs:
 
 # Might want to use Matrix here
     - name: Build Binary Linux
-      run: dotnet publish -c Release -o publish -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true -p:RuntimeIdentifier=linux-x64 -p:IncludeNativeLibrariesForSelfExtract=true -p:OutputType=WinExe
+      run: dotnet publish -c Release -o Muscurdi_bin -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true -p:RuntimeIdentifier=linux-x64 -p:IncludeNativeLibrariesForSelfExtract=true -p:OutputType=WinExe
       working-directory: Muscurdi
     
     - name: Zip Binary
-      run: tar -cvzf "Muscurdi_linux.zip" "publish" && mv Muscurdi_linux.zip ../bin_release 
+      run: tar -cvzf "Muscurdi_linux.zip" "Muscurdi_bin" && mv Muscurdi_linux.zip ../bin_release && rm -rf Muscurdi_bin/
       working-directory: Muscurdi
     
     - name: Build Binary Win
-      run: dotnet publish -c Release -o publish -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true -p:RuntimeIdentifier=win-x64 -p:IncludeNativeLibrariesForSelfExtract=true -p:OutputType=WinExe
+      run: dotnet publish -c Release -o Muscurdi_bin -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true -p:RuntimeIdentifier=win-x64 -p:IncludeNativeLibrariesForSelfExtract=true -p:OutputType=WinExe
       working-directory: Muscurdi
     
     - name: Zip Binary
-      run: tar -cvzf "Muscurdi_win.zip" "publish" && mv Muscurdi_win.zip ../bin_release 
+      run: tar -cvzf "Muscurdi_win.zip" "Muscurdi_bin" && mv Muscurdi_win.zip ../bin_release && rm -rf Muscurdi_bin/
       working-directory: Muscurdi
 
-    - name: Build Binary MacOs
-      run: dotnet publish -c Release -o publish -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true -p:RuntimeIdentifier=osx-x64 -p:IncludeNativeLibrariesForSelfExtract=true -p:OutputType=WinExe
+    - name: Build Binary MacOS
+      run: dotnet publish -c Release -o Muscurdi_bin -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true -p:RuntimeIdentifier=osx-x64 -p:IncludeNativeLibrariesForSelfExtract=true -p:OutputType=WinExe
       working-directory: Muscurdi
     
     - name: Zip Binary
-      run: tar -cvzf "Muscurdi_osx.zip" "publish" && mv Muscurdi_osx.zip ../bin_release 
+      run: tar -cvzf "Muscurdi_osx.zip" "Muscurdi_bin" && mv Muscurdi_osx.zip ../bin_release  && rm -rf Muscurdi_bin/
       working-directory: Muscurdi
 
     - name: Upload Bin Linux
