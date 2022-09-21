@@ -28,5 +28,5 @@ jobs:
         ls
       working-directory: Muscurdi
 
-    - name: run tests
-      run: dotnet test
+    # - name: run tests
+    #   run: dotnet test
