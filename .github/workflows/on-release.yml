@@ -5,7 +5,7 @@ on:
     types: [published]
 
 jobs:
-  build-publish:
+  publish-binaries:
     timeout-minutes: 20
     runs-on: windows-latest
 
@@ -25,7 +25,7 @@ jobs:
       working-directory: Muscurdi
     
     - name: Zip Binary
-      run: tar -cvzf "Muscurdi_linux.zip" "Muscurdi_bin" && mv Muscurdi_linux.zip ../bin_release && rm -r Muscurdi_bin/
+      run: powershell Compress-Archive "Muscurdi_bin" "Muscurdi_linux.zip" && mv Muscurdi_linux.zip ../bin_release && rm -r Muscurdi_bin/
       working-directory: Muscurdi
     
     - name: Build Binary Win
@@ -33,7 +33,7 @@ jobs:
       working-directory: Muscurdi
     
     - name: Zip Binary
-      run: tar -cvzf "Muscurdi_win.zip" "Muscurdi_bin" && mv Muscurdi_win.zip ../bin_release && rm -r Muscurdi_bin/
+      run: powershell Compress-Archive "Muscurdi_bin" "Muscurdi_win.zip" && mv Muscurdi_win.zip ../bin_release && rm -r Muscurdi_bin/
       working-directory: Muscurdi
 
     - name: Build Binary MacOS
@@ -41,7 +41,7 @@ jobs:
       working-directory: Muscurdi
     
     - name: Zip Binary
-      run: tar -cvzf "Muscurdi_osx.zip" "Muscurdi_bin" && mv Muscurdi_osx.zip ../bin_release  && rm -r Muscurdi_bin/
+      run: powershell Compress-Archive "Muscurdi_bin" "Muscurdi_osx.zip" && mv Muscurdi_osx.zip ../bin_release  && rm -r Muscurdi_bin/
       working-directory: Muscurdi
 
     - name: Upload Bin Linux
