@@ -24,9 +24,8 @@ jobs:
       shell: pwsh
       run: |
         $version=(git rev-parse --short HEAD)
-        echo $version
-        dotnet publish -c Release -o Muscurdi_bin$version -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true -p:IncludeNativeLibrariesForSelfExtract=true -p:OutputType=WinExe -p:SourceRevisionId=$version -p:RuntimeIdentifier=linux-x64
-        ls
+        dotnet publish -c Release -o Muscurdi_bin -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true -p:IncludeNativeLibrariesForSelfExtract=true -p:OutputType=WinExe -p:SourceRevisionId=$version -p:RuntimeIdentifier=linux-x64
+        Compress-Archive "Muscurdi_bin" "Muscurdi_win.zip" && ls
       working-directory: Muscurdi
 
     # - name: run tests
