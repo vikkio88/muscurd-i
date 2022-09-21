@@ -9,8 +9,8 @@
   <DockPanel LastChildFill="True">
     <Border Height="30" DockPanel.Dock="Bottom" BorderThickness="0">
       <StackPanel>
-        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10">v0.0.1-pre_alpha</TextBlock>
-        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10">github.com/vikkio88/muscurd-i</TextBlock>
+        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="11">github.com/vikkio88/muscurd-i</TextBlock>
+        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="9" Text="{Binding AppVersion}"/>
       </StackPanel>
     </Border>
     <Border Classes="Header" DockPanel.Dock="Top">
