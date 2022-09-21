@@ -21,7 +21,7 @@ jobs:
       uses: actions/setup-dotnet@v1
 
     - name: Testing stuff
-    - run: |
+      run: |
         git_hash=$(git rev-parse --short "$GITHUB_SHA")
         dotnet publish -c Release -o Muscurdi_bin -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true -p:IncludeNativeLibrariesForSelfExtract=true -p:OutputType=WinExe -p:SourceRevisionId=$git_hash -p:RuntimeIdentifier=linux-x64
         powershell Compress-Archive "Muscurdi_bin" "Muscurdi_linux.zip" && mv Muscurdi_linux.zip ../bin_release && rm -r Muscurdi_bin/
