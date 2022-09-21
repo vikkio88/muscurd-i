@@ -21,27 +21,39 @@ jobs:
 
 # Might want to use Matrix here
     - name: Build Binary Linux
-      run: dotnet publish -c Release -o Muscurdi_bin -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true -p:IncludeNativeLibrariesForSelfExtract=true -p:OutputType=WinExe -p:SourceRevisionId=`git rev-parse --short HEAD` -p:RuntimeIdentifier=linux-x64
+      shell: pwsh
+      run: |
+        $version=(git rev-parse --short HEAD)
+        dotnet publish -c Release -o Muscurdi_bin -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true -p:IncludeNativeLibrariesForSelfExtract=true -p:OutputType=WinExe -p:SourceRevisionId=$version -p:RuntimeIdentifier=linux-x64
       working-directory: Muscurdi
     
     - name: Zip Binary
-      run: powershell Compress-Archive "Muscurdi_bin" "Muscurdi_linux.zip" && mv Muscurdi_linux.zip ../bin_release && rm -r Muscurdi_bin/
+      shell: pwsh
+      run: Compress-Archive "Muscurdi_bin" "Muscurdi_linux.zip" && mv Muscurdi_linux.zip ../bin_release && rm -r Muscurdi_bin/
       working-directory: Muscurdi
     
     - name: Build Binary Win
-      run: dotnet publish -c Release -o Muscurdi_bin -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true -p:IncludeNativeLibrariesForSelfExtract=true -p:OutputType=WinExe -p:SourceRevisionId=`git rev-parse --short HEAD` -p:RuntimeIdentifier=win-x64
+      shell: pwsh
+      run: |
+        $version=(git rev-parse --short HEAD)
+        dotnet publish -c Release -o Muscurdi_bin -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true -p:IncludeNativeLibrariesForSelfExtract=true -p:OutputType=WinExe -p:SourceRevisionId=$version -p:RuntimeIdentifier=win-x64
       working-directory: Muscurdi
     
     - name: Zip Binary
-      run: powershell Compress-Archive "Muscurdi_bin" "Muscurdi_win.zip" && mv Muscurdi_win.zip ../bin_release && rm -r Muscurdi_bin/
+      shell: pwsh
+      run: Compress-Archive "Muscurdi_bin" "Muscurdi_win.zip" && mv Muscurdi_win.zip ../bin_release && rm -r Muscurdi_bin/
       working-directory: Muscurdi
 
     - name: Build Binary MacOS
-      run: dotnet publish -c Release -o Muscurdi_bin -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true -p:IncludeNativeLibrariesForSelfExtract=true -p:OutputType=WinExe -p:SourceRevisionId=`git rev-parse --short HEAD` -p:RuntimeIdentifier=osx-x64
+      shell: pwsh
+      run: |
+        $version=(git rev-parse --short HEAD)
+        dotnet publish -c Release -o Muscurdi_bin -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true -p:IncludeNativeLibrariesForSelfExtract=true -p:OutputType=WinExe -p:SourceRevisionId=$version -p:RuntimeIdentifier=osx-x64
       working-directory: Muscurdi
     
     - name: Zip Binary
-      run: powershell Compress-Archive "Muscurdi_bin" "Muscurdi_osx.zip" && mv Muscurdi_osx.zip ../bin_release  && rm -r Muscurdi_bin/
+      shell: pwsh
+      run: Compress-Archive "Muscurdi_bin" "Muscurdi_osx.zip" && mv Muscurdi_osx.zip ../bin_release  && rm -r Muscurdi_bin/
       working-directory: Muscurdi
 
     - name: Upload Bin Linux
