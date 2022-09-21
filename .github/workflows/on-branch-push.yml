@@ -21,10 +21,11 @@ jobs:
       uses: actions/setup-dotnet@v1
 
     - name: Testing stuff
+      shell: pwsh
       run: |
-        powershell "set-variable -name version -value `git rev-parse --short HEAD`"
-        powershell echo "get-variable -name version"
-        powershell dotnet publish -c Release -o Muscurdi_bin$version -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true -p:IncludeNativeLibrariesForSelfExtract=true -p:OutputType=WinExe -p:SourceRevisionId=$version -p:RuntimeIdentifier=linux-x64
+        $version=(git rev-parse --short HEAD)
+        echo $version
+        dotnet publish -c Release -o Muscurdi_bin$version -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true -p:IncludeNativeLibrariesForSelfExtract=true -p:OutputType=WinExe -p:SourceRevisionId=$version -p:RuntimeIdentifier=linux-x64
         ls
       working-directory: Muscurdi
 
