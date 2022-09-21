@@ -22,9 +22,9 @@ jobs:
 
     - name: Testing stuff
       run: |
-        powershell \$VERSION = git rev-parse --short HEAD
-        powershell echo \$VERSION
-        powershell dotnet publish -c Release -o Muscurdi_bin\$VERSION -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true -p:IncludeNativeLibrariesForSelfExtract=true -p:OutputType=WinExe -p:SourceRevisionId=\$VERSION -p:RuntimeIdentifier=linux-x64
+        powershell "set-variable -name version -value `git rev-parse --short HEAD`"
+        powershell echo "get-variable -name version"
+        powershell dotnet publish -c Release -o Muscurdi_bin$version -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true -p:IncludeNativeLibrariesForSelfExtract=true -p:OutputType=WinExe -p:SourceRevisionId=$version -p:RuntimeIdentifier=linux-x64
         ls
       working-directory: Muscurdi
 
