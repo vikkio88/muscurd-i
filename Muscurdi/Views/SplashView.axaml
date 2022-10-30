@@ -9,19 +9,19 @@
   <DockPanel LastChildFill="True">
     <Border Height="30" DockPanel.Dock="Bottom" BorderThickness="0">
       <StackPanel>
-        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="11">github.com/vikkio88/muscurd-i</TextBlock>
+        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="11" Text="github.com/vikkio88/muscurd-i"/>
         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="9" Text="{Binding AppVersion}"/>
       </StackPanel>
     </Border>
     <Border Classes="Header" DockPanel.Dock="Top">
       <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-        <TextBlock HorizontalAlignment="Center" FontSize="20">Muscurd-I</TextBlock>
-        <TextBlock HorizontalAlignment="Center" FontSize="16">Password Manager</TextBlock>
+        <TextBlock HorizontalAlignment="Center" FontSize="20" Text="Muscurd-I" />
+        <TextBlock HorizontalAlignment="Center" FontSize="16" Text="Password Manager" />
       </StackPanel>
     </Border>
     <StackPanel Margin="10" HorizontalAlignment="Center">
       <StackPanel HorizontalAlignment="Center" IsVisible="{Binding !IsDbInitialised}" Height="60">
-        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="11">Setup a Master Password (4 words of 4 letters and a 4 digits number):</TextBlock>
+        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="11" Text="Setup a Master Password (4 words of 4 letters and a 4 digits number):" />
         <Button Width="150"
                 HorizontalAlignment="Center"
                 VerticalContentAlignment="Center"
