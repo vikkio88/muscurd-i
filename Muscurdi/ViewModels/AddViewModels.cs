@@ -10,7 +10,7 @@ public class AddViewModel : ReactiveObject, IRoutableViewModel
 {
     public IScreen HostScreen { get; }
     public string UrlPathSegment { get; } = "Add";
-    public ReactiveCommand<Unit, Unit> Back { get; }
+    public ReactiveCommand<Unit, IRoutableViewModel> Back { get; }
 
     private string _name = string.Empty;
     public string Name { get => _name; set => this.RaiseAndSetIfChanged(ref _name, value); }
