@@ -7,42 +7,42 @@
              d:DesignHeight="450"
              xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
              x:Class="Muscurdi.Views.AddView">
-  <DockPanel LastChildFill="True">
-    <Border Classes="Header" DockPanel.Dock="Top">
-      <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-        <TextBlock HorizontalAlignment="Center" FontSize="20">Muscurd-I</TextBlock>
-        <TextBlock HorizontalAlignment="Center" FontSize="16">Add New Password</TextBlock>
-      </StackPanel>
-    </Border>
-    <Border Height="40" DockPanel.Dock="Bottom">
-      <Button Command="{Binding Back}" Classes="IconBtn">
-        <i:Icon Value="fa fa-chevron-left" FontSize="16" />
-      </Button>
-    </Border>
-    <StackPanel Margin="10" VerticalAlignment="Center">
-      <TextBox Text="{Binding Name}" Watermark="Name" />
-      <DockPanel LastChildFill="True">
-        <Button DockPanel.Dock="Right" Command="{Binding ShowPass}" >
-          <i:Icon Value="{Binding ShowPassIcon}" FontSize="16" />
-        </Button>
-        <TextBox Text="{Binding Password}" Watermark="Password" PasswordChar="{Binding PassChar}" />
-      </DockPanel>
-      <DockPanel LastChildFill="True">
-        <Button DockPanel.Dock="Left" Command="{Binding Add}" Width="60">
-          <i:Icon Value="fa fa-save" FontSize="16" />
-        </Button>
-        <Border Classes="Error"
-                Margin="0,5,0,0"
-                Height="50"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                IsVisible="{Binding !!Error}">
-          <TextBlock HorizontalAlignment="Center"
-                     VerticalAlignment="Center"
-                     Text="{Binding Error}"
-                     Foreground="White" />
+    <DockPanel LastChildFill="True">
+        <Border Classes="Header" DockPanel.Dock="Top">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock HorizontalAlignment="Center" FontSize="20" Text="Muscurd-I" />
+                <TextBlock HorizontalAlignment="Center" FontSize="16" Text="Add New Password" />
+            </StackPanel>
         </Border>
-      </DockPanel>
-    </StackPanel>
-  </DockPanel>
+        <Border Height="40" DockPanel.Dock="Bottom">
+            <Button Command="{Binding Back}" Classes="IconBtn">
+                <i:Icon Value="fa fa-chevron-left" FontSize="16" />
+            </Button>
+        </Border>
+        <StackPanel Margin="10" VerticalAlignment="Center">
+            <TextBox Text="{Binding Name}" Watermark="Name" />
+            <DockPanel LastChildFill="True">
+                <Button DockPanel.Dock="Right" Command="{Binding ShowPass}">
+                    <i:Icon Value="{Binding ShowPassIcon}" FontSize="16" />
+                </Button>
+                <TextBox Text="{Binding Password}" Watermark="Password" PasswordChar="{Binding PassChar}" />
+            </DockPanel>
+            <DockPanel LastChildFill="True">
+                <Button DockPanel.Dock="Left" Command="{Binding Add}" Width="60">
+                    <i:Icon Value="fa fa-save" FontSize="16" />
+                </Button>
+                <Border Classes="Error"
+                        Margin="0,5,0,0"
+                        Height="50"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        IsVisible="{Binding !!Error}">
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Text="{Binding Error}"
+                               Foreground="White" />
+                </Border>
+            </DockPanel>
+        </StackPanel>
+    </DockPanel>
 </UserControl>

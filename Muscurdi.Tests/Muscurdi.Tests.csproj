@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Muscurdi\muscurdi.csproj" />
+    <ProjectReference Include="..\Muscurdi\Muscurdi.csproj" />
   </ItemGroup>
 
 </Project>
