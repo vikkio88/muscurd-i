@@ -1,5 +1,7 @@
+<img src="https://user-images.githubusercontent.com/248805/199102326-1d8940ca-3931-43e0-9154-487d4e39fdde.png" width="60" alt="muscurd-i logo" />
+
 # muscurd-i
-![muscurd-i](https://user-images.githubusercontent.com/248805/199102326-1d8940ca-3931-43e0-9154-487d4e39fdde.png  | width=60)
+
 small password manager in c# and Avalonia.
 How I did it and why is explained in this [post](https://vikkio.hashnode.dev/muscurd-i-my-personal-password-manager)
 
