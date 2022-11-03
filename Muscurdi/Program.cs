@@ -3,13 +3,18 @@ using Avalonia.ReactiveUI;
 using System;
 using Projektanker.Icons.Avalonia;
 using Projektanker.Icons.Avalonia.FontAwesome;
+using Muscurdi.Libs;
 
 namespace Muscurdi;
 class Program
 {
     [STAThread]
-    public static void Main(string[] args) => BuildAvaloniaApp()
+    public static void Main(string[] args)
+    {
+        SingleAppInstance.Check("muscurd-i");
+        BuildAvaloniaApp()
         .StartWithClassicDesktopLifetime(args);
+    }
 
     public static AppBuilder BuildAvaloniaApp()
     {
