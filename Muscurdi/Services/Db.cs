@@ -56,6 +56,19 @@ public class Db
         Passwords = _db.GetCollection<PasswordEntry>(PASSWORD_ENTRIES_COLLECTION);
     }
 
+    public PasswordEntry? GetById(LiteDB.ObjectId id)
+    {
+        var password = Passwords.FindById(id);
+        password.Password = Crypto.Decrypt(password.Password, _key);
+        return password;
+    }
+
+    public void UpdatePassword(PasswordEntry password)
+    {
+        password.Password = Crypto.Encrypt(password.Password, _key);
+        Passwords.Update(password);
+    }
+
     public bool AddPassword(PasswordEntry password)
     {
         Passwords.EnsureIndex(x => x.Name, true);

@@ -11,7 +11,7 @@ class Program
     [STAThread]
     public static void Main(string[] args)
     {
-        SingleAppInstance.Check("muscurd-i");
+        //SingleAppInstance.Check("muscurd-i");
         BuildAvaloniaApp()
         .StartWithClassicDesktopLifetime(args);
     }

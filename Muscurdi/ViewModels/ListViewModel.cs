@@ -17,6 +17,7 @@ public class ListViewModel : ReactiveObject, IRoutableViewModel
 
     public ReactiveCommand<string, Unit> CopyToClipboard { get; set; }
     public ReactiveCommand<LiteDB.ObjectId, Unit> DeletePassword { get; set; }
+    public ReactiveCommand<LiteDB.ObjectId, IRoutableViewModel> UpdateEntry { get; set; }
     private ObservableCollection<PasswordEntry> _passwords = new();
     public ObservableCollection<PasswordEntry> Passwords { get => _passwords; set => this.RaiseAndSetIfChanged(ref _passwords, value); }
 
@@ -43,6 +44,7 @@ public class ListViewModel : ReactiveObject, IRoutableViewModel
                 System.TimeSpan.FromSeconds(3)
             );
         });
+        UpdateEntry = ReactiveCommand.CreateFromObservable((LiteDB.ObjectId id) => HostScreen.Router.Navigate.Execute(new AddViewModel(this.HostScreen, id)));
         DeletePassword = ReactiveCommand.Create((LiteDB.ObjectId id) =>
         {
             if (S.Instance.Db.Passwords.Delete(id))

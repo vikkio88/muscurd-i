@@ -20,7 +20,8 @@
             </Button>
         </Border>
         <StackPanel Margin="10" VerticalAlignment="Center">
-            <TextBox Text="{Binding Name}" Watermark="Name" />
+            <TextBox Text="{Binding Name}" Watermark="Service/Website" />
+            <TextBox Text="{Binding Username}" Watermark="Username" />
             <DockPanel LastChildFill="True">
                 <Button DockPanel.Dock="Right" Command="{Binding ShowPass}">
                     <i:Icon Value="{Binding ShowPassIcon}" FontSize="16" />
