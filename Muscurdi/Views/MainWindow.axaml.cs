@@ -10,7 +10,7 @@ public partial class MainWindow : ReactiveWindow<ViewModels.MainWindowViewModel>
 {
     public MainWindow()
     {
-        this.WhenActivated(disposables => {});
+        this.WhenActivated(disposables => { });
         AvaloniaXamlLoader.Load(this);
     }
 }

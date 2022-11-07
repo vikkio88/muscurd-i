@@ -60,7 +60,7 @@ public static class Crypto
                 }
             }
         }
-        catch (Exception exc)
+        catch (Exception)
         {
             return null;
         }

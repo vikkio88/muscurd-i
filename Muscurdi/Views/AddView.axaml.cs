@@ -8,7 +8,7 @@ public partial class AddView : ReactiveUserControl<AddViewModel>
 {
     public AddView()
     {
-        this.WhenActivated(disposables => {});
+        this.WhenActivated(disposables => { });
         AvaloniaXamlLoader.Load(this);
     }
 }

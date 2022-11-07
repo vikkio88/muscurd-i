@@ -8,7 +8,7 @@ public partial class ListView : ReactiveUserControl<ListViewModel>
 {
     public ListView()
     {
-        this.WhenActivated(disposables => {});
+        this.WhenActivated(disposables => { });
         AvaloniaXamlLoader.Load(this);
     }
 }

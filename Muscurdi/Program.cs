@@ -11,6 +11,7 @@ class Program
     [STAThread]
     public static void Main(string[] args)
     {
+        // maybe we can disable this on debug?
         SingleAppInstance.Check("muscurd-i");
         BuildAvaloniaApp()
         .StartWithClassicDesktopLifetime(args);

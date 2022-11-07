@@ -1,59 +1,159 @@
-<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Styles xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style Selector="Button">
-        <Setter Property="Background" Value="#3F72AF" />
-        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Background"
+            Value="#3F72AF" />
+        <Setter Property="Foreground"
+            Value="White" />
         <Setter Property="Template">
             <ControlTemplate>
                 <ContentPresenter x:Name="PART_ContentPresenter"
-                                  Background="{TemplateBinding Background}"
-                                  BorderBrush="{TemplateBinding BorderBrush}"
-                                  BorderThickness="{TemplateBinding BorderThickness}"
-                                  CornerRadius="{TemplateBinding CornerRadius}"
-                                  Content="{TemplateBinding Content}"
-                                  ContentTemplate="{TemplateBinding ContentTemplate}"
-                                  Padding="{TemplateBinding Padding}"
-                                  RecognizesAccessKey="True"
-                                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="{TemplateBinding CornerRadius}"
+                    Content="{TemplateBinding Content}"
+                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                    Padding="{TemplateBinding Padding}"
+                    RecognizesAccessKey="True"
+                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
             </ControlTemplate>
         </Setter>
     </Style>
     <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-        <Setter Property="Background" Value="#112D4E" />
-        <Setter Property="TextBlock.Foreground" Value="White" />
+        <Setter Property="Background"
+            Value="#112D4E" />
+        <Setter Property="TextBlock.Foreground"
+            Value="White" />
     </Style>
     <Style Selector="Button:disabled /template/ ContentPresenter#PART_ContentPresenter">
-        <Setter Property="Opacity" Value=".7" />
-        <Setter Property="Background" Value="#3F72AF" />
-        <Setter Property="TextBlock.Foreground" Value="White" />
+        <Setter Property="Opacity"
+            Value=".7" />
+        <Setter Property="Background"
+            Value="#3F72AF" />
+        <Setter Property="TextBlock.Foreground"
+            Value="White" />
     </Style>
     <Style Selector="Border">
-        <Setter Property="BorderBrush" Value="#112D4E" />
-        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush"
+            Value="#112D4E" />
+        <Setter Property="BorderThickness"
+            Value="1" />
     </Style>
     <Style Selector="Border.Header">
-        <Setter Property="Background" Value="#DBE2EF" />
-        <Setter Property="Height" Value="50" />
+        <Setter Property="Background"
+            Value="#DBE2EF" />
+        <Setter Property="Height"
+            Value="50" />
     </Style>
     <Style Selector="Border.Row">
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Background" Value="#DBE2EF" />
-        <Setter Property="Padding" Value="5" />
-        <Setter Property="Width" Value="350" />
-        <Setter Property="Height" Value="50" />
-        <Setter Property="Margin" Value="5" />
+        <Setter Property="BorderThickness"
+            Value="0" />
+        <Setter Property="Background"
+            Value="#DBE2EF" />
+        <Setter Property="Padding"
+            Value="5" />
+        <Setter Property="Width"
+            Value="350" />
+        <Setter Property="Height"
+            Value="50" />
+        <Setter Property="Margin"
+            Value="5" />
     </Style>
     <Style Selector="Border.Error">
-        <Setter Property="Background" Value="#E64848" />
+        <Setter Property="Background"
+            Value="#E64848" />
     </Style>
     <Style Selector="Border.Success">
-        <Setter Property="Background" Value="#6de648" />
+        <Setter Property="Background"
+            Value="#6de648" />
+        <Setter Property="BorderThickness"
+            Value="0" />
     </Style>
     <Style Selector="TextBlock">
-        <Setter Property="Foreground" Value="#112D4E" />
+        <Setter Property="Foreground"
+            Value="#112D4E" />
     </Style>
 
     <Style Selector="Button.IconBtn">
-        <Setter Property="Width" Value="50" />
+        <Setter Property="Width"
+            Value="50" />
+    </Style>
+    <!-- Border -->
+    <Style Selector="Border.VCent">
+        <Setter Property="VerticalAlignment"
+            Value="Center" />
+    </Style>
+    <Style Selector="Border.HCent">
+        <Setter Property="HorizontalAlignment"
+            Value="Center" />
+    </Style>
+    <!-- TextBlock -->
+    <Style Selector="TextBlock.VCent">
+        <Setter Property="VerticalAlignment"
+            Value="Center" />
+    </Style>
+    <Style Selector="TextBlock.HCent">
+        <Setter Property="HorizontalAlignment"
+            Value="Center" />
+    </Style>
+
+    <Style Selector="TextBlock.TCent">
+        <Setter Property="TextAlignment"
+            Value="Center" />
+    </Style>
+
+    <!-- Panels -->
+    <Style Selector="StackPanel.VCent">
+        <Setter Property="VerticalAlignment"
+            Value="Center" />
+    </Style>
+    <Style Selector="StackPanel.HCent">
+        <Setter Property="HorizontalAlignment"
+            Value="Center" />
+    </Style>
+
+    <Style Selector="StackPanel.H">
+        <Setter Property="Orientation"
+            Value="Horizontal" />
+    </Style>
+
+    <Style Selector="StackPanel.S3">
+        <Setter Property="Spacing"
+            Value="3" />
+    </Style>
+    <Style Selector="StackPanel.S5">
+        <Setter Property="Spacing"
+            Value="5" />
+    </Style>
+
+    <!-- Buttons -->
+    <Style Selector="Button.VCent">
+        <Setter Property="VerticalAlignment"
+            Value="Center" />
+    </Style>
+    <Style Selector="Button.HCent">
+        <Setter Property="HorizontalAlignment"
+            Value="Center" />
+    </Style>
+    <Style Selector="Button.HCCent">
+        <Setter Property="HorizontalContentAlignment"
+            Value="Center" />
+    </Style>
+    <Style Selector="Button.VCCent">
+        <Setter Property="VerticalContentAlignment"
+            Value="Center" />
+    </Style>
+
+
+    <!-- MaskedTextBox -->
+    <Style Selector="MaskedTextBox.VCent">
+        <Setter Property="VerticalAlignment"
+            Value="Center" />
+    </Style>
+    <Style Selector="MaskedTextBox.HCent">
+        <Setter Property="HorizontalAlignment"
+            Value="Center" />
     </Style>
 </Styles>

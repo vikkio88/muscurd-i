@@ -44,15 +44,15 @@ public class MasterPasswordTests
         var password = MasterPassword.Make(new() { "nope", "yeah", "yeah" }, "mamm", 9999);
         Assert.Equal("nope-yeah-yeah-mamm-9999", password.ToMemorable());
     }
-    
-    
+
+
     [Fact]
     public void MasterPasswordMakeFromBitsFailsWithNotEnoughBits()
     {
         var result = Assert.Throws<MasterPasswordException>(() => MasterPassword.Make(new() { "nope", "yeah" }, "mamm", 9999));
         Assert.Contains("prefix", result.Message);
     }
-    
+
     [Fact]
     public void MasterPasswordMakeFromBitsFailsWithWordsNotLongEnough()
     {
@@ -73,14 +73,14 @@ public class MasterPasswordTests
         var result = Assert.Throws<MasterPasswordException>(() => MasterPassword.Make(new() { "nope", "yeah", "yoyo" }, "mammamia", 9999));
         Assert.Contains("words", result.Message);
     }
-    
+
     [Fact]
     public void MasterPasswordMakeFromBitsFailsWithAppendixTooBig()
     {
         var result = Assert.Throws<MasterPasswordException>(() => MasterPassword.Make(new() { "nope", "yeah", "yoyo" }, "mammamia", 10000));
         Assert.Contains("appendix", result.Message);
     }
-    
+
     [Fact]
     public void MasterPasswordMakeFromBitsFailsWithAppendixTooShort()
     {

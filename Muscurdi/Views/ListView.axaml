@@ -1,75 +1,146 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             d:DesignWidth="800"
-             d:DesignHeight="450"
-             xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
-             x:Class="Muscurdi.Views.ListView">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignWidth="800"
+    d:DesignHeight="450"
+    xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+    x:Class="Muscurdi.Views.ListView">
     <DockPanel LastChildFill="True">
-        <Border Classes="Header" DockPanel.Dock="Top">
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock HorizontalAlignment="Center" FontSize="20" Text="Muscurd-I" />
-                <TextBlock HorizontalAlignment="Center" FontSize="16" Text="Stored Passwords" />
+        <Border Classes="Header"
+            DockPanel.Dock="Top">
+            <StackPanel Classes="VCent HCent">
+                <TextBlock Classes="HCent"
+                    FontSize="20"
+                    Text="Muscurd-I" />
+                <TextBlock Classes="HCent"
+                    FontSize="16"
+                    Text="Stored Passwords" />
             </StackPanel>
         </Border>
-        <Border Height="40" DockPanel.Dock="Bottom" Background="White">
-            <Button Command="{Binding GoToAdd}" Classes="IconBtn">
-                <i:Icon Value="fa fa-plus" FontSize="16" />
-            </Button>
-        </Border>
-        <StackPanel Margin="10" HorizontalAlignment="Center">
-            <DockPanel LastChildFill="True">
-                <Button DockPanel.Dock="Right"
-                        Width="100"
-                        VerticalContentAlignment="Center"
-                        HorizontalContentAlignment="Center"
-                        Command="{Binding Search}">
-                    <i:Icon Value="fa fa-search" FontSize="16" />
+        <Border Height="40"
+            DockPanel.Dock="Bottom"
+            Background="White">
+            <DockPanel>
+                <Button Command="{Binding GoToAdd}"
+                    DockPanel.Dock="Left"
+                    Classes="IconBtn">
+                    <i:Icon Value="fa-plus"
+                        FontSize="16" />
                 </Button>
+                <Border Margin="2"
+                    Padding="5"
+                    IsVisible="{Binding Message, Converter={x:Static ObjectConverters.IsNotNull}}"
+                    Classes="Success VCent HCent">
+                    <TextBlock Classes="VCent HCent"
+                        Text="{Binding Message}"
+                        Foreground="White" />
+                </Border>
+            </DockPanel>
+        </Border>
+        <StackPanel Margin="10"
+            Classes="HCent">
+            <DockPanel LastChildFill="True">
+                <StackPanel Classes="H S3"
+                    DockPanel.Dock="Right">
+                    <Button Width="100"
+                        Classes="HCent VCent"
+                        IsDefault="True"
+                        ToolTip.Tip="Search"
+                        Command="{Binding Search}">
+                        <i:Icon Value="fa-search"
+                            FontSize="16" />
+                    </Button>
+                    <Button Width="50"
+                        ToolTip.Tip="List All"
+                        Classes="HCent VCent"
+                        Command="{Binding ShowAll}">
+                        <i:Icon Value="fa-list"
+                            FontSize="14" />
+                    </Button>
+
+                </StackPanel>
                 <TextBox Text="{Binding SearchText}"
-                         Watermark="Search Password"
-                         Width="200"
-                         MaxWidth="200"
-                         FontSize="14" />
+                    Watermark="Search Password"
+                    Width="200"
+                    MaxWidth="200"
+                    FontSize="14" />
             </DockPanel>
             <!-- Results -->
-            <StackPanel x:Name="SearchRoot" Margin="4" Width="400">
-                <TextBlock Margin="4" IsVisible="{Binding !!!Passwords.Count}" Text="{Binding SearchStatus}" />
-                <Border Classes="Success"
-                        Margin="2"
-                        Padding="5"
-                        IsVisible="{Binding !!Message}"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center">
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Message}"
-                               Foreground="White" />
-                </Border>
-                <ScrollViewer VerticalScrollBarVisibility="Auto" IsVisible="{Binding !!Passwords.Count}" Height="160">
+            <StackPanel x:Name="SearchRoot"
+                Margin="4"
+                Width="400">
+                <TextBlock Margin="4"
+                    IsVisible="{Binding !!!Passwords.Count}"
+                    Text="{Binding SearchStatus}" />
+                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                    IsVisible="{Binding !!Passwords.Count}"
+                    Height="160">
                     <ItemsControl Items="{Binding Passwords}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border Classes="Row">
-                                    <DockPanel Width="350" LastChildFill="True" VerticalAlignment="Center"
-                                               HorizontalAlignment="Center">
-                                        <StackPanel DockPanel.Dock="Right" Margin="4,0,0,4" Orientation="Horizontal">
-                                            <Button Command="{Binding #SearchRoot.DataContext.DeletePassword}"
-                                                    CommandParameter="{Binding Id}">
-                                                <i:Icon Value="fa fa-trash" FontSize="12" />
+                                <Border Classes="Row"
+                                    Width="450"
+                                    Height="90">
+                                    <Grid Width="450"
+                                        Height="90"
+                                        ColumnDefinitions="*"
+                                        RowDefinitions="*,1.5*"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center">
+                                        <DockPanel Grid.Row="0"
+                                            Width="390"
+                                            VerticalAlignment="Center"
+                                            LastChildFill="true">
+                                            <StackPanel DockPanel.Dock="Right"
+                                                Classes="H S3"
+                                                Margin="0,0,5,0">
+                                                <Button CommandParameter="{Binding Id}"
+                                                    Command="{Binding #SearchRoot.DataContext.UpdateEntry}"
+                                                    ToolTip.Tip="Modify">
+                                                    <i:Icon Value="fa-pen"
+                                                        FontSize="8" />
+                                                </Button>
+                                                <Button CommandParameter="{Binding Id}"
+                                                    Command="{Binding #SearchRoot.DataContext.DeletePassword}"
+                                                    ToolTip.Tip="Delete">
+                                                    <i:Icon Value="fa-trash"
+                                                        FontSize="8" />
+                                                </Button>
+                                            </StackPanel>
+                                            <TextBlock Margin="3,0,0,0"
+                                                DockPanel.Dock="Left"
+                                                FontWeight="Bold"
+                                                Text="{Binding Name}"
+                                                FontSize="16"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center" />
+                                        </DockPanel>
+                                        <StackPanel Grid.Row="1"
+                                            Classes="H HCent VCent">
+                                            <Button CommandParameter="{Binding Username}"
+                                                Command="{Binding #SearchRoot.DataContext.CopyToClipboard}"
+                                                ToolTip.Tip="Copy Username To Clipboard">
+                                                <StackPanel Classes="H S5">
+                                                    <i:Icon Value="fa-user"
+                                                        FontSize="13" />
+                                                    <i:Icon Value="fa-copy"
+                                                        FontSize="13" />
+                                                </StackPanel>
                                             </Button>
-                                            <Button Command="{Binding #SearchRoot.DataContext.CopyToClipboard}"
-                                                    CommandParameter="{Binding Password}">
-                                                <i:Icon Value="fa fa-copy" FontSize="12" />
+                                            <Button CommandParameter="{Binding Password}"
+                                                Command="{Binding #SearchRoot.DataContext.CopyToClipboard}"
+                                                ToolTip.Tip="Copy Password To Clipboard">
+                                                <StackPanel Classes="H S5">
+                                                    <i:Icon Value="fa-key"
+                                                        FontSize="13" />
+                                                    <i:Icon Value="fa-copy"
+                                                        FontSize="13" />
+                                                </StackPanel>
                                             </Button>
                                         </StackPanel>
-                                        <TextBlock Margin="3,0,0,0"
-                                                   DockPanel.Dock="Left"
-                                                   FontWeight="Bold"
-                                                   Text="{Binding Name}"
-                                                   HorizontalAlignment="Left"
-                                                   VerticalAlignment="Center" />
-                                    </DockPanel>
+                                    </Grid>
                                 </Border>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

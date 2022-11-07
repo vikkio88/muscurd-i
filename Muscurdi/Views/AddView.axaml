@@ -1,46 +1,62 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             d:DesignWidth="800"
-             d:DesignHeight="450"
-             xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
-             x:Class="Muscurdi.Views.AddView">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignWidth="800"
+    d:DesignHeight="450"
+    xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+    x:Class="Muscurdi.Views.AddView">
     <DockPanel LastChildFill="True">
-        <Border Classes="Header" DockPanel.Dock="Top">
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock HorizontalAlignment="Center" FontSize="20" Text="Muscurd-I" />
-                <TextBlock HorizontalAlignment="Center" FontSize="16" Text="Add New Password" />
+        <Border Classes="Header"
+            DockPanel.Dock="Top">
+            <StackPanel Classes="VCent HCent">
+                <TextBlock Classes="HCent"
+                    FontSize="20"
+                    Text="Muscurd-I" />
+                <TextBlock Classes="HCent"
+                    FontSize="16"
+                    Text="{Binding PageTitle}" />
             </StackPanel>
         </Border>
-        <Border Height="40" DockPanel.Dock="Bottom">
-            <Button Command="{Binding Back}" Classes="IconBtn">
-                <i:Icon Value="fa fa-chevron-left" FontSize="16" />
+        <Border Height="40"
+            DockPanel.Dock="Bottom">
+            <Button Command="{Binding Back}"
+                Classes="IconBtn">
+                <i:Icon Value="fa-chevron-left"
+                    FontSize="16" />
             </Button>
         </Border>
-        <StackPanel Margin="10" VerticalAlignment="Center">
-            <TextBox Text="{Binding Name}" Watermark="Name" />
+        <StackPanel Margin="10"
+            Classes="VCent">
+            <TextBox Text="{Binding Name}"
+                Watermark="Service/Website" />
+            <TextBox Text="{Binding Username}"
+                Watermark="Username" />
             <DockPanel LastChildFill="True">
-                <Button DockPanel.Dock="Right" Command="{Binding ShowPass}">
-                    <i:Icon Value="{Binding ShowPassIcon}" FontSize="16" />
+                <Button DockPanel.Dock="Right"
+                    Command="{Binding ShowPass}">
+                    <i:Icon Value="{Binding ShowPassIcon}"
+                        FontSize="16" />
                 </Button>
-                <TextBox Text="{Binding Password}" Watermark="Password" PasswordChar="{Binding PassChar}" />
+                <TextBox Text="{Binding Password}"
+                    Watermark="Password"
+                    PasswordChar="{Binding PassChar}" />
             </DockPanel>
             <DockPanel LastChildFill="True">
-                <Button DockPanel.Dock="Left" Command="{Binding Add}" Width="60">
-                    <i:Icon Value="fa fa-save" FontSize="16" />
+                <Button DockPanel.Dock="Left"
+                    Command="{Binding Add}"
+                    Width="60">
+                    <i:Icon Value="fa-save"
+                        FontSize="16" />
                 </Button>
-                <Border Classes="Error"
-                        Margin="0,5,0,0"
-                        Height="50"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        IsVisible="{Binding !!Error}">
-                    <TextBlock HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               Text="{Binding Error}"
-                               Foreground="White" />
+                <Border Classes="Error HCent VCent"
+                    Margin="0,5,0,0"
+                    Height="50"
+                    IsVisible="{Binding !!Error}">
+                    <TextBlock Classes="HCent VCent"
+                        Text="{Binding Error}"
+                        Foreground="White" />
                 </Border>
             </DockPanel>
         </StackPanel>

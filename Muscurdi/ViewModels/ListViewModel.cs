@@ -17,32 +17,38 @@ public class ListViewModel : ReactiveObject, IRoutableViewModel
 
     public ReactiveCommand<string, Unit> CopyToClipboard { get; set; }
     public ReactiveCommand<LiteDB.ObjectId, Unit> DeletePassword { get; set; }
+    public ReactiveCommand<LiteDB.ObjectId, IRoutableViewModel> UpdateEntry { get; set; }
     private ObservableCollection<PasswordEntry> _passwords = new();
     public ObservableCollection<PasswordEntry> Passwords { get => _passwords; set => this.RaiseAndSetIfChanged(ref _passwords, value); }
 
     private string? _searchText = null;
     public string? SearchText { get => _searchText; set => this.RaiseAndSetIfChanged(ref _searchText, value); }
 
-    private string? _searchStatus = "Here there will be your passwords...";
+    private string? _searchStatus = null;
     public string? SearchStatus { get => _searchStatus; set => this.RaiseAndSetIfChanged(ref _searchStatus, value); }
 
     private string? _message = null;
     public string? Message { get => _message; set => this.RaiseAndSetIfChanged(ref _message, value); }
     public ReactiveCommand<Unit, Unit> Search { get; set; }
+    public ReactiveCommand<Unit, Unit> ShowAll { get; set; }
 
     public ListViewModel(IScreen screen)
     {
         HostScreen = screen;
         GoToAdd = ReactiveCommand.CreateFromObservable(() => HostScreen.Router.Navigate.Execute(new AddViewModel(this.HostScreen)));
-        CopyToClipboard = ReactiveCommand.Create((string password) =>
+        SearchStatus = $"{S.Instance.Db.Count()} Passwords Saved.";
+
+        CopyToClipboard = ReactiveCommand.Create((string text) =>
         {
-            Avalonia.Application.Current?.Clipboard?.SetTextAsync(password);
+            Avalonia.Application.Current?.Clipboard?.SetTextAsync(text);
             Message = "Copied to Clipboard!";
             DispatcherTimer.RunOnce(
                 () => Message = null,
                 System.TimeSpan.FromSeconds(3)
             );
         });
+
+        UpdateEntry = ReactiveCommand.CreateFromObservable((LiteDB.ObjectId id) => HostScreen.Router.Navigate.Execute(new AddViewModel(this.HostScreen, id)));
         DeletePassword = ReactiveCommand.Create((LiteDB.ObjectId id) =>
         {
             if (S.Instance.Db.Passwords.Delete(id))
@@ -68,6 +74,19 @@ public class ListViewModel : ReactiveObject, IRoutableViewModel
                 SearchStatus = null;
             }
         }, canSearch);
+
+        ShowAll = ReactiveCommand.Create(() =>
+        {
+            Passwords = new(S.Instance.Db.GetAll());
+            if (Passwords.Count == 0)
+            {
+                SearchStatus = "No Passwords Stored yet...";
+            }
+            else
+            {
+                SearchStatus = null;
+            }
+        });
 
     }
 }
