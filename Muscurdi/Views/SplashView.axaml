@@ -11,47 +11,40 @@
       DockPanel.Dock="Bottom"
       BorderThickness="0">
       <StackPanel>
-        <TextBlock VerticalAlignment="Center"
-          HorizontalAlignment="Center"
+        <TextBlock Classes="VCent HCent"
           FontSize="11"
           Text="github.com/vikkio88/muscurd-i"/>
-        <TextBlock VerticalAlignment="Center"
-          HorizontalAlignment="Center"
+        <TextBlock Classes="VCent HCent"
           FontSize="9"
           Text="{Binding AppVersion}"/>
       </StackPanel>
     </Border>
     <Border Classes="Header"
       DockPanel.Dock="Top">
-      <StackPanel VerticalAlignment="Center"
-        HorizontalAlignment="Center">
-        <TextBlock HorizontalAlignment="Center"
+      <StackPanel Classes="HCent VCent">
+        <TextBlock Classes="HCent"
           FontSize="20"
           Text="Muscurd-I" />
-        <TextBlock HorizontalAlignment="Center"
+        <TextBlock Classes="HCent"
           FontSize="16"
           Text="Password Manager" />
       </StackPanel>
     </Border>
     <StackPanel Margin="10"
-      HorizontalAlignment="Center">
-      <StackPanel HorizontalAlignment="Center"
+      Classes="HCent">
+      <StackPanel Classes="HCent"
         IsVisible="{Binding !IsDbInitialised}"
         Height="60">
-        <TextBlock VerticalAlignment="Center"
-          HorizontalAlignment="Center"
+        <TextBlock Classes="HCent VCent"
           FontSize="11"
           Text="Setup a Master Password (4 words of 4 letters and a 4 digits number):" />
         <Button Width="150"
-          HorizontalAlignment="Center"
-          VerticalContentAlignment="Center"
-          HorizontalContentAlignment="Center"
+          Classes="HCent HCCent VCCent"
           Command="{Binding GeneratePassword}">Generate</Button>
       </StackPanel>
       <MaskedTextBox x:Name="LoginInput"
         Watermark="Master Password"
-        VerticalAlignment="Center"
-        HorizontalAlignment="Center"
+        Classes="VCent HCent"
         Mask="LLLL-LLLL-LLLL-LLLL-0000"
         Text="{Binding Password}"
         Width="205"
@@ -61,21 +54,14 @@
       <Button Width="205"
         Command="{Binding Login}"
         IsDefault="True"
-        VerticalAlignment="Center"
-        HorizontalAlignment="Center"
-        VerticalContentAlignment="Center"
-        HorizontalContentAlignment="Center"
+        Classes="HCent VCent HCCent VCCent"
         Margin="0,3,0,0">Login</Button>
-      <Border Classes="Error"
-        Margin="0,5,0,0"
+      <Border Margin="0,5,0,0"
         Width="350"
         Height="50"
-        HorizontalAlignment="Center"
-        VerticalAlignment="Center"
+        Classes="Error VCent HCent"
         IsVisible="{Binding !!Error}">
-        <TextBlock TextAlignment="Center"
-          HorizontalAlignment="Center"
-          VerticalAlignment="Center"
+        <TextBlock Classes="TCent HCent VCent"
           Text="{Binding Error}"
           Foreground="White" />
       </Border>

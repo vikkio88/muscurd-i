@@ -10,12 +10,11 @@
     <DockPanel LastChildFill="True">
         <Border Classes="Header"
             DockPanel.Dock="Top">
-            <StackPanel VerticalAlignment="Center"
-                HorizontalAlignment="Center">
-                <TextBlock HorizontalAlignment="Center"
+            <StackPanel Classes="VCent HCent">
+                <TextBlock Classes="HCent"
                     FontSize="20"
                     Text="Muscurd-I" />
-                <TextBlock HorizontalAlignment="Center"
+                <TextBlock Classes="HCent"
                     FontSize="16"
                     Text="Stored Passwords" />
             </StackPanel>
@@ -30,28 +29,23 @@
                     <i:Icon Value="fa-plus"
                         FontSize="16" />
                 </Button>
-                <Border Classes="Success"
-                    Margin="2"
+                <Border Margin="2"
                     Padding="5"
                     IsVisible="{Binding Message, Converter={x:Static ObjectConverters.IsNotNull}}"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
-                    <TextBlock HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
+                    Classes="Success VCent HCent">
+                    <TextBlock Classes="VCent HCent"
                         Text="{Binding Message}"
                         Foreground="White" />
                 </Border>
             </DockPanel>
         </Border>
         <StackPanel Margin="10"
-            HorizontalAlignment="Center">
+            Classes="HCent">
             <DockPanel LastChildFill="True">
-                <StackPanel Orientation="Horizontal"
-                    Spacing="3"
+                <StackPanel Classes="H S3"
                     DockPanel.Dock="Right">
                     <Button Width="100"
-                        VerticalContentAlignment="Center"
-                        HorizontalContentAlignment="Center"
+                        Classes="HCent VCent"
                         IsDefault="True"
                         ToolTip.Tip="Search"
                         Command="{Binding Search}">
@@ -60,8 +54,7 @@
                     </Button>
                     <Button Width="50"
                         ToolTip.Tip="List All"
-                        VerticalContentAlignment="Center"
-                        HorizontalContentAlignment="Center"
+                        Classes="HCent VCent"
                         Command="{Binding ShowAll}">
                         <i:Icon Value="fa-list"
                             FontSize="14" />
@@ -101,8 +94,8 @@
                                             VerticalAlignment="Center"
                                             LastChildFill="true">
                                             <StackPanel DockPanel.Dock="Right"
-                                                Orientation="Horizontal"
-                                                Spacing="3">
+                                                Classes="H S3"
+                                                Margin="0,0,5,0">
                                                 <Button CommandParameter="{Binding Id}"
                                                     Command="{Binding #SearchRoot.DataContext.UpdateEntry}"
                                                     ToolTip.Tip="Modify">
@@ -125,14 +118,11 @@
                                                 VerticalAlignment="Center" />
                                         </DockPanel>
                                         <StackPanel Grid.Row="1"
-                                            Orientation="Horizontal"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Center">
+                                            Classes="H HCent VCent">
                                             <Button CommandParameter="{Binding Username}"
                                                 Command="{Binding #SearchRoot.DataContext.CopyToClipboard}"
                                                 ToolTip.Tip="Copy Username To Clipboard">
-                                                <StackPanel Orientation="Horizontal"
-                                                    Spacing="5">
+                                                <StackPanel Classes="H S5">
                                                     <i:Icon Value="fa-user"
                                                         FontSize="13" />
                                                     <i:Icon Value="fa-copy"
@@ -142,8 +132,7 @@
                                             <Button CommandParameter="{Binding Password}"
                                                 Command="{Binding #SearchRoot.DataContext.CopyToClipboard}"
                                                 ToolTip.Tip="Copy Password To Clipboard">
-                                                <StackPanel Orientation="Horizontal"
-                                                    Spacing="5">
+                                                <StackPanel Classes="H S5">
                                                     <i:Icon Value="fa-key"
                                                         FontSize="13" />
                                                     <i:Icon Value="fa-copy"
