@@ -23,23 +23,51 @@
         <Border Height="40"
             DockPanel.Dock="Bottom"
             Background="White">
-            <Button Command="{Binding GoToAdd}"
-                Classes="IconBtn">
-                <i:Icon Value="fa fa-plus"
-                    FontSize="16" />
-            </Button>
+            <DockPanel>
+                <Button Command="{Binding GoToAdd}"
+                    DockPanel.Dock="Left"
+                    Classes="IconBtn">
+                    <i:Icon Value="fa-plus"
+                        FontSize="16" />
+                </Button>
+                <Border Classes="Success"
+                    Margin="2"
+                    Padding="5"
+                    IsVisible="{Binding Message, Converter={x:Static ObjectConverters.IsNotNull}}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                    <TextBlock HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Text="{Binding Message}"
+                        Foreground="White" />
+                </Border>
+            </DockPanel>
         </Border>
         <StackPanel Margin="10"
             HorizontalAlignment="Center">
             <DockPanel LastChildFill="True">
-                <Button DockPanel.Dock="Right"
-                    Width="100"
-                    VerticalContentAlignment="Center"
-                    HorizontalContentAlignment="Center"
-                    Command="{Binding Search}">
-                    <i:Icon Value="fa fa-search"
-                        FontSize="16" />
-                </Button>
+                <StackPanel Orientation="Horizontal"
+                    Spacing="3"
+                    DockPanel.Dock="Right">
+                    <Button Width="100"
+                        VerticalContentAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        IsDefault="True"
+                        ToolTip.Tip="Search"
+                        Command="{Binding Search}">
+                        <i:Icon Value="fa-search"
+                            FontSize="16" />
+                    </Button>
+                    <Button Width="50"
+                        ToolTip.Tip="List All"
+                        VerticalContentAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        Command="{Binding ShowAll}">
+                        <i:Icon Value="fa-list"
+                            FontSize="14" />
+                    </Button>
+
+                </StackPanel>
                 <TextBox Text="{Binding SearchText}"
                     Watermark="Search Password"
                     Width="200"
@@ -53,17 +81,6 @@
                 <TextBlock Margin="4"
                     IsVisible="{Binding !!!Passwords.Count}"
                     Text="{Binding SearchStatus}" />
-                <Border Classes="Success"
-                    Margin="2"
-                    Padding="5"
-                    IsVisible="{Binding !!Message}"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
-                    <TextBlock HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Text="{Binding Message}"
-                        Foreground="White" />
-                </Border>
                 <ScrollViewer VerticalScrollBarVisibility="Auto"
                     IsVisible="{Binding !!Passwords.Count}"
                     Height="160">

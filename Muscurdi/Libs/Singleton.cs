@@ -2,7 +2,7 @@ namespace Muscurdi.Libs;
 
 public class Singleton<T> where T : class, new()
 {
-    private static volatile T _instance;
+    private static volatile T? _instance;
     private static readonly object _lock = new object();
     public static T Instance
     {

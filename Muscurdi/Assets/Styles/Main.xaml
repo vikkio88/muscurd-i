@@ -48,6 +48,7 @@
     </Style>
     <Style Selector="Border.Success">
         <Setter Property="Background" Value="#6de648" />
+        <Setter Property="BorderThickness" Value="0" />
     </Style>
     <Style Selector="TextBlock">
         <Setter Property="Foreground" Value="#112D4E" />

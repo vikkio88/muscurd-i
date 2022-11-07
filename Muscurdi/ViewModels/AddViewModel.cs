@@ -13,6 +13,8 @@ public class AddViewModel : ReactiveObject, IRoutableViewModel
     public ReactiveCommand<Unit, IRoutableViewModel> Back { get; }
     private PasswordEntry? _existingRecord = null;
     private string _name = string.Empty;
+
+    public string PageTitle { get; } = "Add New Password";
     public string Name { get => _name; set => this.RaiseAndSetIfChanged(ref _name, value); }
     private string _username = string.Empty;
     public string Username { get => _username; set => this.RaiseAndSetIfChanged(ref _username, value); }
@@ -22,7 +24,7 @@ public class AddViewModel : ReactiveObject, IRoutableViewModel
     private string? _passChar = "*";
     public string? PassChar { get => _passChar; set => this.RaiseAndSetIfChanged(ref _passChar, value); }
 
-    private string _showPassIcon = "fa fa-eye";
+    private string _showPassIcon = "fa-eye";
     public string ShowPassIcon { get => _showPassIcon; set => this.RaiseAndSetIfChanged(ref _showPassIcon, value); }
 
 
@@ -42,6 +44,7 @@ public class AddViewModel : ReactiveObject, IRoutableViewModel
             Name = _existingRecord.Name;
             Username = _existingRecord.Username;
             Password = _existingRecord.Password;
+            PageTitle = "Update Password";
         }
 
 
@@ -49,25 +52,21 @@ public class AddViewModel : ReactiveObject, IRoutableViewModel
         {
             if (_existingRecord != null)
             {
-                _existingRecord.Name = Name;
-                _existingRecord.Username = Username;
-                _existingRecord.Password = Password;
-                S.Instance.Db.UpdatePassword(_existingRecord);
+                updatePassword();
                 HostScreen.Router.NavigateAndReset.Execute(new ListViewModel(this.HostScreen));
                 return;
             }
 
 
-            var result = S.Instance.Db.AddPassword(new() { Name = Name, Username = Username, Password = Password });
-            if (!result)
+            if (!addNewPassword())
             {
                 Error = $"Can't add {Name}, probably exists already";
                 DispatcherTimer.RunOnce(
                     () => Error = null,
                     System.TimeSpan.FromSeconds(3)
                 );
-                return;
             }
+
             Name = string.Empty;
             Username = string.Empty;
             Password = string.Empty;
@@ -76,7 +75,18 @@ public class AddViewModel : ReactiveObject, IRoutableViewModel
         ShowPass = ReactiveCommand.Create(() =>
         {
             PassChar = PassChar == "*" ? null : "*";
-            ShowPassIcon = PassChar == null ? "fa fa-eye-slash" : "fa fa-eye";
+            ShowPassIcon = PassChar == null ? "fa-eye-slash" : "fa-eye";
         });
     }
+
+    private void updatePassword()
+    {
+        _existingRecord.Name = Name;
+        _existingRecord.Username = Username;
+        _existingRecord.Password = Password;
+        S.Instance.Db.UpdatePassword(_existingRecord);
+    }
+
+    private bool addNewPassword() => S.Instance.Db.AddPassword(new() { Name = Name, Username = Username, Password = Password });
+
 }

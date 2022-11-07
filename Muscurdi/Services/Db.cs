@@ -45,7 +45,7 @@ public class Db
             {
                 _key = (Crypto.Decrypt(key.Value, masterPassword) == masterPassword.ToString()) ? masterPassword : null;
             }
-            catch (Exception exc)
+            catch (Exception)
             {
                 throw new InvalidPasswordException("Wrong Master Password");
             }
@@ -56,12 +56,21 @@ public class Db
         Passwords = _db.GetCollection<PasswordEntry>(PASSWORD_ENTRIES_COLLECTION);
     }
 
+    public int Count() => Passwords.Count();
+
     public PasswordEntry? GetById(LiteDB.ObjectId id)
     {
         var password = Passwords.FindById(id);
         password.Password = Crypto.Decrypt(password.Password, _key);
         return password;
     }
+
+    public List<PasswordEntry>? GetAll() => Passwords.FindAll().Select(p =>
+        {
+            p.Password = Crypto.Decrypt(p.Password, _key) ?? "ERROR-DECRYPTING";
+            return p;
+        }).ToList();
+
 
     public void UpdatePassword(PasswordEntry password)
     {
@@ -78,7 +87,7 @@ public class Db
         {
             result = Passwords.Insert(password);
         }
-        catch (LiteDB.LiteException _)
+        catch (LiteDB.LiteException)
         {
             result = null;
 
